@@ -1,0 +1,81 @@
+# Quandy README
+
+Quandy is a sweet, simple library to help you create web applications with
+Python. It plays nice with web.py and sqlalchemy.
+
+## Author
+
+  * Author: Ryan McGreal
+
+  * Email: [ryan@quandyfactory.com][1]
+
+  * Homepage: [http://quandyfactory.com/projects/quandy][2]
+
+  * Repository: [http://github.com/quandyfactory/Quandy][3]
+
+## Licence
+
+Released under the GNU General Public Licence, Version 2:
+
+[http://www.gnu.org/licenses/old-licenses/gpl-2.0.html][4]
+
+## This Version
+
+  * Version: 0.1
+
+  * Release Date: 2009-08-06
+
+## Revision History
+
+### Version: 0.1
+
+  * Release Date: 2009-08-06
+
+  * Changes:
+
+    * First Commit
+
+## Requirements
+
+  * Python 2.5 or newer (not Python 3)
+
+  * python-markdown [http://www.freewisdom.org/projects/python-markdown/][5]
+
+  * Web.py is a great simple web framework [http://webpy.org][6]
+
+  * SQLAlchemy is a fantastic ORM [http://www.sqlalchemy.org/][7]
+
+## Things I Wish Quandy Had
+
+### Unicode Support
+
+I wrote this before I really understood how unicode works in Python (okay, I'm
+still not 100% sure I understand it), so it punts on unicode support. I really
+need to fix this.
+
+### Packaging
+
+At some point I need to tackle packaging this up either through PyPi or using
+easy_install. In the meantime it's a file.
+
+### Better Forms
+
+For sheer expedience, I wrote the form and formfield classes so that they lay
+forms out using HTML tables (hiss! boo!). I'd like to add an optional
+parameter that lets you switch between table-based layout and div-based
+layout.
+
+   [1]: mailto:ryan@quandyfactory.com
+
+   [2]: http://quandyfactory.com/projects/quandy
+
+   [3]: http://github.com/quandyfactory/Quandy
+
+   [4]: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+   [5]: http://www.freewisdom.org/projects/python-markdown/
+
+   [6]: http://webpy.org
+
+   [7]: http://www.sqlalchemy.org/
+
