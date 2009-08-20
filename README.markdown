@@ -21,11 +21,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-  * Version: 0.1
+  * Version: 0.11
 
-  * Release Date: 2009-08-06
+  * Release Date: 2009-08-19
 
 ## Revision History
+
+### Version: 0.11
+
+  * Release Date: 2009-08-19
+
+  * Changes:
+
+    * Unicode support works fine in web.py and SQLAlchemy. When using MySQL (via [mysql-python](http://sourceforge.net/projects/mysql-python/)), you must be sure to pass the `?charset=utf8` parameter as part of the db connection string.
 
 ### Version: 0.1
 
@@ -46,12 +54,6 @@ Released under the GNU General Public Licence, Version 2:
   * SQLAlchemy is a fantastic ORM [http://www.sqlalchemy.org/][7]
 
 ## Things I Wish Quandy Had
-
-### Unicode Support
-
-I wrote this before I really understood how unicode works in Python (okay, I'm
-still not 100% sure I understand it), so it punts on unicode support. I really
-need to fix this.
 
 ### Packaging
 
