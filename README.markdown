@@ -5,13 +5,13 @@ Python. It plays nice with web.py and sqlalchemy.
 
 ## Author
 
-  * Author: Ryan McGreal
+* Author: Ryan McGreal
 
-  * Email: [ryan@quandyfactory.com][1]
+* Email: [ryan@quandyfactory.com][1]
 
-  * Homepage: [http://quandyfactory.com/projects/quandy][2]
+* Homepage: [http://quandyfactory.com/projects/quandy][2]
 
-  * Repository: [http://github.com/quandyfactory/Quandy][3]
+* Repository: [http://github.com/quandyfactory/Quandy][3]
 
 ## Licence
 
@@ -21,37 +21,47 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-  * Version: 0.11
+* Version: 0.11
 
-  * Release Date: 2009-08-19
+* Release Date: 2009-08-20
 
 ## Revision History
 
 ### Version: 0.11
 
-  * Release Date: 2009-08-19
+* Release Date: 2009-08-20
 
-  * Changes:
+* Changes:
+
+    * Fixed bug in Hml.Write method that didn't correctly display the version of Quandy
+    * Fixed bug in Tools.Fix1252Codes that didn't properly import re
+    * Enhanced the functionality of the Tools.PCase function to capitalize hyphenated words and optionally fix mixed-case names (like McGreal) 
+
+### Version: 0.1a
+
+* Release Date: 2009-08-19
+
+* Changes:
 
     * Unicode support works fine in web.py and SQLAlchemy. When using MySQL (via [mysql-python](http://sourceforge.net/projects/mysql-python/)), you must be sure to pass the `?charset=utf8` parameter as part of the db connection string.
 
 ### Version: 0.1
 
-  * Release Date: 2009-08-06
+* Release Date: 2009-08-06
 
-  * Changes:
+* Changes:
 
     * First Commit
 
-## Requirements
+## Requirements and Recommendations
 
-  * Python 2.5 or newer (not Python 3)
+* Python 2.5 or newer (not Python 3)
 
-  * python-markdown [http://www.freewisdom.org/projects/python-markdown/][5]
+* python-markdown [http://www.freewisdom.org/projects/python-markdown/][5]
 
-  * Web.py is a great simple web framework [http://webpy.org][6]
+* Web.py is a great simple web framework [http://webpy.org][6]
 
-  * SQLAlchemy is a fantastic ORM [http://www.sqlalchemy.org/][7]
+* SQLAlchemy is a fantastic ORM [http://www.sqlalchemy.org/][7]
 
 ## Things I Wish Quandy Had
 
@@ -66,6 +76,8 @@ For sheer expedience, I wrote the form and formfield classes so that they lay
 forms out using HTML tables (hiss! boo!). I'd like to add an optional
 parameter that lets you switch between table-based layout and div-based
 layout.
+
+## References
 
    [1]: mailto:ryan@quandyfactory.com
 

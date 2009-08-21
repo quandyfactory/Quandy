@@ -2,13 +2,14 @@
 Quandy - a sweet, simple library to help you create web applications with Python.
 Plays nice with web.py and sqlalchemy.
 """
-__version__ = '0.1'
+__version__ = '0.11'
 __author__ = 'Ryan McGreal ryan@quandyfactory.com'
 __copyright__ = 'Copyright 2009 by Ryan McGreal. Licenced under GPL version 2. http://www.gnu.org/licenses/gpl-2.0.html'
 
 import datetime
 date = datetime.date.today(); day = datetime.timedelta(days=1)
 import hashlib # for password hash function
+import re # for the Fix1252Codes1252Codes function
 
 class Html:
     """
@@ -63,7 +64,7 @@ class Html:
         addline('  <head>')
         addline('    <meta name="author" content="%s"%s>' % (page_author, closetag))
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
-        addline('    <meta name="generator" content="Quandy %s; url=http://quandyfactory.com"%s>' % (VERSION, closetag))
+        addline('    <meta name="generator" content="Quandy %s; url=http://quandyfactory.com"%s>' % (__version__, closetag))
         if nocache == True: addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
         addline('    <link rel="shortcut icon" href="%s"%s>' % (favicon_url, closetag))
         addline('    <title>%s - %s</title>' % (page_title, site_name))
@@ -165,7 +166,7 @@ class Tools:
         #INITIALIZE VALUES
         pass
 
-    def Fix1252Codes(text):
+    def Fix1252Codes(self, text):
         """
         Replace non-standard Microsoft character codes from the Windows-1252 character set in a unicode string with proper unicode codes
         """
@@ -193,7 +194,6 @@ class Tools:
         """
         Converts URLs and Email addresses to hyperlinks
         """
-        import re
         def HTMLIt(match):
             return '<a href="%s" target="_blank">%s</a>' % (match.group(1), match.group(1))
         def EmailIt(match):
@@ -228,14 +228,40 @@ class Tools:
         dt = uglymonth.split('/')
         return '%s, %s' % (months[int(dt[1])], dt[0])
 
-    def PCase(self, a):
-        return ' '.join(i.capitalize() for i in a.split(' '))
-
+    def PCase(self, text, names=False):
+        """
+        Takes a string and returns it in proper case (initial caps)
+        """
+        text = text.lower()
+        text = ' '.join(self.Capitalize(i) for i in text.split(' '))
+        text = '-'.join(self.Capitalize(i) for i in text.split('-'))
+        text = "'".join(self.Capitalize(i) for i in text.split("'"))
+        text = '"'.join(self.Capitalize(i) for i in text.split('"'))
+        if names==True:
+            text = 'Mc'.join(self.Capitalize(i) for i in text.split('Mc'))
+            text = 'Mac'.join(self.Capitalize(i) for i in text.split('Mac'))
+        
+        return text.strip()
+        
+    def Capitalize(self, text):
+        """
+        Capitalizes a word
+        """
+        outstr = '' #initialize outstr
+        if len(text) > 0:
+            outstr = text[0].capitalize()
+            if len(text) > 1:
+                for c in text[1:]: 
+                    outstr = outstr + c
+        return outstr
+        
+        
     def FriendlyName(self, uname):
         """
         Takes a lowercase string with underscores _ between words and returns a string of capitalized words with spaces.
         """
-        uname = str(uname).replace('_',' ')
+        uname = self.PCase(str(uname).replace('_',' '))
+        
         if len(uname) != 0:
             finalname=[]
             finalname.append(uname[0].upper())
