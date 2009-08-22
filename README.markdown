@@ -1,7 +1,8 @@
 # Quandy README
 
-Quandy is a sweet, simple library to help you create web applications with
-Python. It plays nice with web.py and sqlalchemy.
+Quandy: a sweet, simple library to help you create web applications with Python. 
+
+It plays nice with web.py and sqlalchemy.
 
 ## Author
 
@@ -21,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.11
+* Version: 0.12
 
-* Release Date: 2009-08-20
+* Release Date: 2009-08-21
 
 ## Revision History
+
+### Version: 0.12
+
+* Release Date: 2009-08-21
+
+* Changes:
+
+    * Added missing lang attribute to <html> tag in Html.Write method.
 
 ### Version: 0.11
 
@@ -77,19 +86,17 @@ forms out using HTML tables (hiss! boo!). I'd like to add an optional
 parameter that lets you switch between table-based layout and div-based
 layout.
 
-## References
+[1]: mailto:ryan@quandyfactory.com
 
-   [1]: mailto:ryan@quandyfactory.com
+[2]: http://quandyfactory.com/projects/quandy
 
-   [2]: http://quandyfactory.com/projects/quandy
+[3]: http://github.com/quandyfactory/Quandy
 
-   [3]: http://github.com/quandyfactory/Quandy
+[4]: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-   [4]: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+[5]: http://www.freewisdom.org/projects/python-markdown/
 
-   [5]: http://www.freewisdom.org/projects/python-markdown/
+[6]: http://webpy.org
 
-   [6]: http://webpy.org
-
-   [7]: http://www.sqlalchemy.org/
+[7]: http://www.sqlalchemy.org/
 

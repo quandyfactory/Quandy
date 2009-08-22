@@ -1,15 +1,14 @@
 """
-Quandy - a sweet, simple library to help you create web applications with Python.
-Plays nice with web.py and sqlalchemy.
+Quandy: A sweet, simple library to help you create web applications with Python. Plays nice with web.py and SQLAlchemy.
 """
-__version__ = '0.11'
-__author__ = 'Ryan McGreal ryan@quandyfactory.com'
-__copyright__ = 'Copyright 2009 by Ryan McGreal. Licenced under GPL version 2. http://www.gnu.org/licenses/gpl-2.0.html'
+__version__ = '0.12'
+__author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
+__copyright__ = 'Copyright (C) 2009 by Ryan McGreal. Licenced under GPL version 2. http://www.gnu.org/licenses/gpl-2.0.html'
 
 import datetime
 date = datetime.date.today(); day = datetime.timedelta(days=1)
 import hashlib # for password hash function
-import re # for the Fix1252Codes1252Codes function
+import re # for the Fix1252Codes function
 
 class Html:
     """
@@ -45,22 +44,22 @@ class Html:
         addline = output.append
         closetag = ''
         if doctype == 'html 4 transitional':
-            addline('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" \n"http://www.w3.org/TR/html4/loose.dtd">')
-            addline('<html>')
+            addline('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">')
+            addline('<html lang="%s">' % (lang))
         elif doctype == 'html 4 quirks':
             addline('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">')
-            addline('<html>')
+            addline('<html lang="%s">' % (lang))
         elif doctype == 'xhtml 1 strict':
-            addline('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" \n"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">')
+            addline('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">')
             addline('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="%s" lang="%s">' % (lang, lang))
             closetag = ' /'
         elif doctype == 'xhtml 1 transitional':
-            addline('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" \n"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">')
+            addline('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">')
             addline('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="%s" lang="%s">' % (lang, lang))
             closetag = ' /'
         else: # default is HTML 4 strict
             addline('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" \n"http://www.w3.org/TR/html4/strict.dtd">')
-            addline('<html>')
+            addline('<html lang="%s">' % (lang))
         addline('  <head>')
         addline('    <meta name="author" content="%s"%s>' % (page_author, closetag))
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
@@ -411,7 +410,7 @@ class Formfield:
     def __init__(self):
         pass
 
-    def Write(self, widget='input', id='', name='', classname='', title='', disabled='', retainstate='true', options = [], leadingoption='', value='', multiple='', type='text', visible='', rows=10, cols=40, twolines=0):
+    def Write(self, widget='input', id='', name='', classname='', title='', disabled='', retainstate='true', options = [], leadingoption='', value='', multiple='', type='text', visible='', rows=10, cols=40, twolines=False):
         output = []
         addline = output.append
         atts = {}
@@ -478,7 +477,7 @@ class Formfield:
                 atts['cols'] = cols
             ats = "".join([' %s="%s"' % (k, v) for k, v in atts.items()])
             addline('  <tr id="%s_tablerow" class="%s_tablerow">' % (id, classname))
-            if twolines == 0:
+            if twolines == False:
                 addline('    <th title="%s">%s</th>\n    <td title="%s">' % (title, title, title))
             else:
                 addline('    <th colspan="2" title="%s">%s</th>\n  </tr>\n  <tr>' % (title, title))
