@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.12
+* Version: 0.13
 
 * Release Date: 2009-08-21
 
 ## Revision History
+
+### Version: 0.13
+
+* Release Date: 2009-08-21
+
+* Changes:
+
+    * Added /static/ to the default file path values in the Html.Write method.
 
 ### Version: 0.12
 

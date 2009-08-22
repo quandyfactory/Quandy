@@ -1,7 +1,7 @@
 """
 Quandy: A sweet, simple library to help you create web applications with Python. Plays nice with web.py and SQLAlchemy.
 """
-__version__ = '0.12'
+__version__ = '0.13'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __copyright__ = 'Copyright (C) 2009 by Ryan McGreal. Licenced under GPL version 2. http://www.gnu.org/licenses/gpl-2.0.html'
 
@@ -20,7 +20,7 @@ class Html:
         #initialize values
         pass
         
-    def Write(self, body_content = '', site_domain='http://localhost/', site_name='Default Site Name', css_path='/styles/', css_files=[], css_extend=[], js_path='/scripts/', js_files=[], js_extend=[], page_title='Default Page Title', page_author='Default Page Author', doctype='html 4 strict', lang='en', charset='UTF-8', favicon_url='/favicon.ico', nocache=True):
+    def def Write(self, body_content = '', site_domain='http://localhost/', site_name='Default Site Name', css_path='/static/styles/', css_files=[], css_extend=[], js_path='/static/scripts/', js_files=[], js_extend=[], page_title='Default Page Title', page_author='Default Page Author', doctype='html 4 strict', lang='en', charset='UTF-8', favicon_url='/static/favicon.ico', nocache=True):
         """
         Parameters:
         site_domain - web domain for your site
@@ -63,7 +63,7 @@ class Html:
         addline('  <head>')
         addline('    <meta name="author" content="%s"%s>' % (page_author, closetag))
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
-        addline('    <meta name="generator" content="Quandy %s; url=http://quandyfactory.com"%s>' % (__version__, closetag))
+        addline('    <meta name="generator" content="Quandy %s; url=http://quandyfactory.com/projects/quandy"%s>' % (__version__, closetag))
         if nocache == True: addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
         addline('    <link rel="shortcut icon" href="%s"%s>' % (favicon_url, closetag))
         addline('    <title>%s - %s</title>' % (page_title, site_name))
