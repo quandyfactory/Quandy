@@ -1,7 +1,7 @@
 """
 Quandy: A sweet, simple library to help you create web applications with Python. Plays nice with web.py and SQLAlchemy.
 """
-__version__ = '0.13'
+__version__ = '0.14'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __copyright__ = 'Copyright (C) 2009 by Ryan McGreal. Licenced under GPL version 2. http://www.gnu.org/licenses/gpl-2.0.html'
 
@@ -20,7 +20,7 @@ class Html:
         #initialize values
         pass
         
-    def def Write(self, body_content = '', site_domain='http://localhost/', site_name='Default Site Name', css_path='/static/styles/', css_files=[], css_extend=[], js_path='/static/scripts/', js_files=[], js_extend=[], page_title='Default Page Title', page_author='Default Page Author', doctype='html 4 strict', lang='en', charset='UTF-8', favicon_url='/static/favicon.ico', nocache=True):
+    def Write(self, body_content = '', site_domain='http://localhost/', site_name='Default Site Name', css_path='/static/styles/', css_files=[], css_extend=[], js_path='/static/scripts/', js_files=[], js_extend=[], page_title='Default Page Title', page_author='Default Page Author', doctype='html 4 strict', lang='en', charset='UTF-8', favicon_url='/static/favicon.ico', nocache=True):
         """
         Parameters:
         site_domain - web domain for your site
@@ -441,11 +441,13 @@ class Formfield:
                 addline('        <option value="">--</option>')
             for option in options:
                 selected = ''
-                if retainstate != '' and str(option) == str(value):
-                    selected = ' selected'
                 if option.__class__() == []:
+                    if retainstate != '' and str(option[0]) == str(value):
+                        selected = ' selected'
                     addline('        <option value="%s"%s>%s</option>' % (option[0], selected, option[1]))
                 else:
+                    if retainstate != '' and str(option) == str(value):
+                        selected = ' selected'
                     addline('        <option value="%s"%s>%s</option>' % (option, selected, option))
             addline('      </select>\n    </td>\n  </tr>')
 

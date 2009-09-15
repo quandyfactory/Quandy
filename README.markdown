@@ -22,11 +22,20 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.13
+* Version: 0.14
 
-* Release Date: 2009-08-21
+* Release Date: 2009-09-14
+
 
 ## Revision History
+
+### Version: 0.14
+
+* Release Date: 2009-09-14
+
+* Changes:
+
+    * Fixed bug in Formfield.Write method, which compares value parameter to value in list of option to flag an option as `selected`. If option list was 2d (value, display), the value matching wasn't working.
 
 ### Version: 0.13
 
