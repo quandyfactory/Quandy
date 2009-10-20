@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.2'
-__releasedate__ = '2009-09-29'
+__version__ = '0.21'
+__releasedate__ = '2009-10-22'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -101,7 +101,6 @@ class Html:
         output:
         Returns an HTML element as a string.
         """
-
         output = ['<%s' % tagname]
         output.extend([' %s="%s"' % (k, v) for k, v in attributes.items()])
         output.append('>%s</%s>' % (innertext, tagname))
@@ -132,7 +131,7 @@ class Html:
         return '\n'.join(output)
 
 
-1252_chars = {
+cp_1252_chars = {
     # from http://www.microsoft.com/typography/unicode/1252.htm
     u"\x80": u"\u20AC", # EURO SIGN
     u"\x82": u"\u201A", # SINGLE LOW-9 QUOTATION MARK
@@ -179,11 +178,21 @@ class Tools:
         if re.search(u"[\x80-\x9f]", text):
             def fixup(m):
                 s = m.group(0)
-                return 1252_chars.get(s, s)
+                return cp_1252_chars.get(s, s)
             if isinstance(text, type("")):
                 text = unicode(text, "iso-8859-1")
             text = re.sub(u"[\x80-\x9f]", fixup, text)
         return text 
+ 
+    def single_or_plural(self, value, single_string='', plural_string='s'):
+        """
+        Takes a value and an optional single_string (default '') and plural_string (default 's'). 
+        Returns the single_string if the value = 1 or the plural_string if the value != 1.
+        """
+        if value == 1:
+            return single_string
+        else:
+            return plural_string
  
     def make_hash(self, password, salt='saltydog', type='md4'):
         """
@@ -193,6 +202,9 @@ class Tools:
         return hashlib.new(type, fullpassword.encode('utf-16le')).hexdigest().upper() 
         
     def weekday_name(self, adate):
+        """
+        Takes a date and returns the weekday name for that date.
+        """
         wkdays = 'Monday Tuesday Wednesday Thursday Friday Saturday Sunday'.split()
         return wkdays[adate.weekday()]
 
@@ -245,15 +257,14 @@ class Tools:
         Takes a string and returns it in proper case (initial caps)
         """
         text = text.lower()
-        text = ' '.join(self.Capitalize(i) for i in text.split(' '))
-        text = '-'.join(self.Capitalize(i) for i in text.split('-'))
-        text = '"'.join(self.Capitalize(i) for i in text.split('"'))
-        text = "'".join(self.Capitalize(i) for i in text.split("'"))
+        text = ' '.join(self.capitalize(i) for i in text.split(' '))
+        text = '-'.join(self.capitalize(i) for i in text.split('-'))
+        text = '"'.join(self.capitalize(i) for i in text.split('"'))
+        text = "'".join(self.capitalize(i) for i in text.split("'"))
         text = text.replace("'S ", "'s ") # fix incorrect capitalize on possessive s
         if names==True:
             text = 'Mc'.join(self.Capitalize(i) for i in text.split('Mc'))
             text = 'Mac'.join(self.Capitalize(i) for i in text.split('Mac'))
-        
         return text.strip()
         
     def capitalize(self, text):
@@ -267,7 +278,6 @@ class Tools:
                 for c in text[1:]: 
                     outstr = outstr + c
         return outstr
-        
         
     def friendly_name(self, uname):
         """
@@ -323,6 +333,10 @@ class Form:
     Enctype - form enctype attribute (default is 'application/x-www-form-urlencoded'; use 'multipart/form-data' for file uploads
     """
 
+    def __init__(self):
+        #INITIALIZE VALUES
+        pass
+
     def get_form_dates(self, days = 7, start = 0, order = -1):
         """
         Summary:
@@ -335,7 +349,6 @@ class Form:
         start - start date # days before today (default = 0)
         order - 1 = asc, -1 = desc (default = -1)
         """
-
         if order == -1:
             end = start + days
             fudge = 0
@@ -348,10 +361,6 @@ class Form:
             options.append(str(date - (day*(x+fudge))))
             x += order*-1
         return options    
-
-    def __init__(self):
-        #INITIALIZE VALUES
-        pass
 
     def write(self, formfields = [], id='', name='', classname='', title='', method='post', action='', enctype='application/x-www-form-urlencoded'):
         atts = {}

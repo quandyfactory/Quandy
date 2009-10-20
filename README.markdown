@@ -22,13 +22,21 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.2
+* Version: 0.21
 
-* Release Date: 2009-10-21
-
+* Release Date: 2009-10-22
 
 ## Revision History
 
+### Version: 0.21
+
+* Release Date: 2009-10-22
+
+* Changes:
+
+    * Fixed name (oops, no decimals in module names) from quandy0.2 to quandy02
+    * Added Tools method single_or_plural(), which takes a value and returns either singular or plural suffix for a word (defaults are '' and 's').
+    
 ### Version: 0.2
 
 * Release Date: 2009-10-21
