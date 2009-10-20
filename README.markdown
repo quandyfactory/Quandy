@@ -1,4 +1,4 @@
-# Quandy README
+﻿# Quandy README
 
 Quandy: a sweet, simple library to help you create web applications with Python. 
 
@@ -22,12 +22,24 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.14
+* Version: 0.2
 
-* Release Date: 2009-09-14
+* Release Date: 2009-10-21
 
 
 ## Revision History
+
+### Version: 0.2
+
+* Release Date: 2009-10-21
+
+* Changes:
+
+    * Converted all method names to lowercase_with_underscores to conform with [PEP 8](http://www.python.org/dev/peps/pep-0008/) 
+    * Changed file name to quandy0.2.py to maintain compatibility with apps using quandy.py versions < 0.2.
+    * Modified Tools.friendly_date to take an optional monthname length parameter (default 3, i.e. January -> Jan).
+    * Removed single quote ' from badchars list in Tools.unfriendly_name
+    * Added optional target parameter to Tools.mark_it_up (default is '')
 
 ### Version: 0.14
 
