@@ -4,7 +4,7 @@ Quandy plays nice with Web.py and SQLAlchemy.
 """
 
 __version__ = '0.22'
-__releasedate__ = '2009-10-21'
+__releasedate__ = '2009-10-22'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -169,6 +169,16 @@ class Tools:
     def __init__(self):
         #INITIALIZE VALUES
         pass
+
+    def is_type(val, type):
+        """
+        Takes a value and a type and returns True if the value is of that type, else False.
+        """
+        if type(val).__name__ == thetype:
+            return True
+        else:
+             return False
+
 
     def fix_1252_codes(self, text):
         """
