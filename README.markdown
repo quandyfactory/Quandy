@@ -34,6 +34,7 @@ Released under the GNU General Public Licence, Version 2:
 
 * Changes:
 
+    * Added Tools.is_type(val, thetype), which returns True if `val` is of type `thetype`.
     * Changed Tools.friendly_date function to remove period after month.
     * Changed Tools.friendly_month to test whether date delimiter is '-' or '/'.
     * Changed Tools.friendly_month to test whether date has two parts (YYYY, MM).
