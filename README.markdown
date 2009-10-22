@@ -1,6 +1,6 @@
 ﻿# Quandy README
 
-Quandy: a sweet, simple library to help you create web applications with Python. 
+Quandy is a sweet, simple library to help you create web applications with Python. 
 
 It plays nice with web.py and sqlalchemy.
 
@@ -22,31 +22,42 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.21
+* Version: 0.22
 
 * Release Date: 2009-10-22
 
 ## Revision History
 
-### Version: 0.21
+### Version: 0.22
 
 * Release Date: 2009-10-22
 
 * Changes:
 
+    * Changed Tools.friendly_date function to remove period after month.
+    * Changed Tools.friendly_month to test whether date delimiter is '-' or '/'.
+    * Changed Tools.friendly_month to test whether date has two parts (YYYY, MM).
+
+### Version: 0.21
+
+* Release Date: 2009-10-20
+
+* Changes:
+
     * Fixed name (oops, no decimals in module names) from quandy0.2 to quandy02
-    * Added Tools method single_or_plural(), which takes a value and returns either singular or plural suffix for a word (defaults are '' and 's').
+    * Added Tools.single_or_plural(), which takes a value and returns either singular or plural suffix for a word (defaults are '' and 's').
+    * Removed colon `:` and hyphen `-` from badchars list in Tools.unfriendly_name
     
 ### Version: 0.2
 
-* Release Date: 2009-10-21
+* Release Date: 2009-10-19
 
 * Changes:
 
     * Converted all method names to lowercase_with_underscores to conform with [PEP 8](http://www.python.org/dev/peps/pep-0008/) 
     * Changed file name to quandy0.2.py to maintain compatibility with apps using quandy.py versions < 0.2.
     * Modified Tools.friendly_date to take an optional monthname length parameter (default 3, i.e. January -> Jan).
-    * Removed single quote ' from badchars list in Tools.unfriendly_name
+    * Removed single quote `'` from badchars list in Tools.unfriendly_name
     * Added optional target parameter to Tools.mark_it_up (default is '')
 
 ### Version: 0.14

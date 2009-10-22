@@ -4,7 +4,7 @@ Quandy plays nice with Web.py and SQLAlchemy.
 """
 
 __version__ = '0.21'
-__releasedate__ = '2009-10-22'
+__releasedate__ = '2009-10-21'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -222,35 +222,44 @@ class Tools:
         output = rx.sub(make_email, output)
         return output
 
-    def friendly_date(self, udate, monthchars=3):
+    def friendly_date(self, uglydate, monthchars=3):
         """
         Takes a YYYY/MM/DD date and returns the date string in MMM D, YYYY format
         """
         months = ' January February March April May June July August September October November December'.split(' ')
-        if '-' in udate:
+        if '-' in uglydate:
             delimiter = '-'
-        elif '/' in udate:
+        elif '/' in uglydate:
             delimiter = '/'
         else:
             delimiter = '/'
-        ud = udate.split(delimiter)
+        ud = uglydate.split(delimiter)
         if len(ud) == 3:
             if monthchars != 0:
                 thismonth = months[int(ud[1])][:monthchars]
             else:
                 thismonth = months[int(ud[1])]
             
-            return '%s. %s, %s' % (months[int(ud[1])], ud[2], ud[0])
+            return '%s %s, %s' % (months[int(ud[1])], ud[2], ud[0])
         else:
-            return str(udate)
+            return str(uglydate)
 
     def friendly_month(self, uglymonth):
         """
         Takes a YYYY/MM date and returns it in MMM, YYYY format
         """
+        if '-' in uglymonth:
+            delimiter = '-'
+        elif '/' in uglymonth:
+            delimiter = '/'
+        else:
+            delimiter = '/'
         months = ' January February March April May June July August September October November December'.split(' ')
-        dt = uglymonth.split('/')
-        return '%s, %s' % (months[int(dt[1])], dt[0])
+        dt = uglymonth.split(delimiter)
+        if len(dt) == 2:
+            return '%s, %s' % (months[int(dt[1])], dt[0])
+        else:
+            return str(uglymonth)
 
     def pcase(self, text, names=False):
         """
@@ -303,7 +312,7 @@ class Tools:
         """
         uname = str(uname).replace(' ','_').lower()
         uname = uname.replace('&#39;','')
-        badchars = ".,!?:;-/"
+        badchars = ".,!?;/"
         outname = ''.join([c for c in uname if c not in badchars])
         while '__' in outname: 
             outname = outname.replace('__','_')
