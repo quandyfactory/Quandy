@@ -3,15 +3,16 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.22'
-__releasedate__ = '2009-10-22'
+__version__ = '0.23'
+__releasedate__ = '2009-10-23'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
 __copyright__ = 'Copyright (C) 2009 by Ryan McGreal. Licenced under GPL version 2. http://www.gnu.org/licenses/gpl-2.0.html'
 
 import datetime
-date = datetime.date.today()
+date = datetime.date.today() #legacy saved for now for compatibility - but deprecated
+today = datetime.date.today()
 day = datetime.timedelta(days=1)
 
 import hashlib # for password hash function
@@ -170,7 +171,7 @@ class Tools:
         #INITIALIZE VALUES
         pass
 
-    def is_type(val, type):
+    def is_type(self, val, thetype):
         """
         Takes a value and a type and returns True if the value is of that type, else False.
         """
@@ -178,7 +179,6 @@ class Tools:
             return True
         else:
              return False
-
 
     def fix_1252_codes(self, text):
         """
@@ -232,6 +232,37 @@ class Tools:
         output = rx.sub(make_email, output)
         return output
 
+    def sql_date(self, yr=date.year, mt=date.month, dy=date.day, delimiter='/'):
+        """
+        Takes a year, month, day integer and returns a date in the form YYYY/MM/DD
+        """
+        return '%04d%s%02d%s%02d' % (yr, delimiter, mt, delimiter, dy)
+    
+    def string_to_date(self, strdate):
+        """
+        Converts a string in the form YYYY/MM/DD or YYYY-MM-DD and converts it to a python date
+        """
+        if len(strdate) != 10:
+            return False
+        if '/' in strdate:
+            delimiter = '/'
+        elif '-' in strdate:
+            delimiter = '-'
+        datelist = strdate.split(delimiter)
+        dateconverted = datetime.date(int(datelist[0]), int(datelist[1]), int(datelist[2]))
+        return dateconverted
+        
+    def compare_dates(self, date1, date2):
+        """
+        Returns the number of days between date1 and date2
+        """
+        if self.is_type(date1, 'date') == False:
+            return False
+        if self.is_type(date2, 'date') == False:
+            return False
+        datediff = date2 - date1
+        return datediff.days
+    
     def friendly_date(self, uglydate, monthchars=3):
         """
         Takes a YYYY/MM/DD date and returns the date string in MMM D, YYYY format
@@ -282,8 +313,8 @@ class Tools:
         text = "'".join(self.capitalize(i) for i in text.split("'"))
         text = text.replace("'S ", "'s ") # fix incorrect capitalize on possessive s
         if names==True:
-            text = 'Mc'.join(self.Capitalize(i) for i in text.split('Mc'))
-            text = 'Mac'.join(self.Capitalize(i) for i in text.split('Mac'))
+            text = 'Mc'.join(self.capitalize(i) for i in text.split('Mc'))
+            text = 'Mac'.join(self.capitalize(i) for i in text.split('Mac'))
         return text.strip()
         
     def capitalize(self, text):

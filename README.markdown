@@ -22,11 +22,23 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.22
+* Version: 0.23
 
-* Release Date: 2009-10-22
+* Release Date: 2009-10-23
 
 ## Revision History
+
+### Version: 0.23
+
+* Release Date: 2009-10-23
+
+* Changes:
+
+    * Fixed bug in Tools.is_type()
+    * Added Tools.sql_date(), which presents the date as a string in the form `YYYY/MM/DD` or `YYYY-MM-DD`.
+    * Added Tools.string_to_date(), which takes a string in the form `YYYY/MM/DD` or `YYYY-MM-DD` and converts to a Python date.
+    * Added Tools.compare_dates(), takes two dates and returns the difference, in days, between them.
+
 
 ### Version: 0.22
 
