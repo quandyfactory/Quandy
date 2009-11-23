@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.23'
-__releasedate__ = '2009-10-23'
+__version__ = '0.3'
+__releasedate__ = '2009-11-22'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -71,6 +71,7 @@ class Html:
         addline('  <head>')
         addline('    <meta name="author" content="%s"%s>' % (page_author, closetag))
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
+        addline('    <meta http-equiv="Content-Style-Type" content="text/css">') # so Total Validator tells me
         addline('    <meta name="generator" content="Quandy %s; url=http://quandyfactory.com/projects/quandy"%s>' % (__version__, closetag))
         if nocache == True: addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
         addline('    <link rel="shortcut icon" href="%s"%s>' % (favicon_url, closetag))
@@ -180,6 +181,45 @@ class Tools:
         else:
              return False
 
+    def validate_email(self, email):
+        """
+        Checks whether an email address looks valid. Returns True or False.
+        Regex via: http://www.regular-expressions.info/email.html
+        """
+        if re.search("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", email):
+            return True
+        else:
+            return False
+
+    def validate_password(self, username, password1, password2, minlen=8, maxlen=40):
+        """
+        Takes two passwords and returns True if they're valid, False if they're not valid.
+        Default minimum length is 8 chars, maximum length is 40 chars
+        """
+        if password1 != password2:
+            return 'Entered asswords do not match'
+        if len(password1) < minlen:
+            return 'Password must be at least 8 characters in length'
+        if len(password1) > maxlen:
+            return 'Password cannot be more than 40 characters in length'
+        if password1 == username:
+            return 'Password must not be the same as username'
+        # didn't fail any tests
+        return True
+
+    def generate_random_password(self, length=8):
+        """
+        Generates a random password including numbers, uppercase letters and lowercase letters.
+        Default length is 8 characters.
+        """
+        validchars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        password = []
+        import random
+        for x in xrange(length):
+            password.append(validchars[random.randrange(0,len(validchars)-1)])
+        return ''.join(password)
+
+
     def fix_1252_codes(self, text):
         """
         Replace non-standard Microsoft character codes from the Windows-1252 character set in a unicode string with proper unicode codes.
@@ -222,17 +262,28 @@ class Tools:
         """
         Converts URLs and Email addresses to hyperlinks
         """
-        def make_link(match, target):
-            return '<a href="%s" target="%s">%s</a>' % (match.group(1), match.group(1), target)
+        def make_link(match):
+            return '<a href="%s">%s</a>' % (match.group(1), match.group(1))
         def make_email(match):
             return '<a href="mailto:%s">%s</a>' % (match.group(1), match.group(1))
-        rx = re.compile(r'(http://([w.]+/?)S*)')
+        rx = re.compile(r'((https?|ftp|gopher|telnet|file|notes|ms-help):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)')
+        # via http://www.geekzilla.co.uk/View2D3B0109-C1B2-4B4E-BFFD-E8088CBC85FD.htm
         output = rx.sub(make_link, plaintext)
         rx = re.compile(r'([a-zA-Z_0-9.-]+@[a-zA-Z_0-9.-]+.w+)')
         output = rx.sub(make_email, output)
         return output
 
-    def sql_date(self, yr=date.year, mt=date.month, dy=date.day, delimiter='/'):
+    def strip_html(self, stuff):
+        """
+        Removes all HTML tags and attributes from a string
+        """
+        def remove_tags(match):
+            return ''
+        rx = re.compile(r'<[^>]+>')
+        output = rx.sub(remove_tags, stuff)
+        return output
+
+    def sql_date(self, yr=datetime.date.today().year, mt=datetime.date.today().month, dy=datetime.date.today().day, delimiter='/'):
         """
         Takes a year, month, day integer and returns a date in the form YYYY/MM/DD
         """
@@ -359,12 +410,14 @@ class Tools:
             outname = outname.replace('__','_')
         return outname
 
-    def random_id(self):
+    def random_id(self, prefix='id_'):
         """
         Returns a randomized id in the form 'form id_#######' for use in HTML elements that require a distinct id for DOM manipulation.
         """
         import random
-        return 'id_' + str(random.random()).replace('.','')
+        return '%s%s' % (prefix, str(random.random()).replace('.',''))
+        
+
 
 
 class Form:
@@ -482,7 +535,7 @@ class Formfield:
     def __init__(self):
         pass
 
-    def write(self, widget='input', id='', name='', classname='', title='', disabled='', retainstate='true', options = [], leadingoption='', value='', multiple='', type='text', visible='', rows=10, cols=40, twolines=False):
+    def write(self, widget='input', id='', name='', classname='', title='', disabled='', retainstate='true', options = [], leadingoption='', value='', multiple='', type='text', visible=False, rows=10, cols=40, twolines=False):
         output = []
         addline = output.append
         atts = {}
@@ -530,7 +583,7 @@ class Formfield:
             if type != '':
                 atts['type'] = type
             ats = "".join([' %s="%s"' % (k, v) for k, v in atts.items()])
-            if type == 'hidden' and visible == '':
+            if type == 'hidden' and visible == False:
                 addline(' <tr style="display: none"><td><input%s></td></tr>' % (ats))
             else:
                 addline('  <tr id="%s_tablerow" class="%s_tablerow">' % (id, classname))
@@ -539,7 +592,7 @@ class Formfield:
                 else:
                     addline('    <td colspan="2" title = "%s" class="form_button">' % (title))
                 addline('      <input%s>' % (ats))
-                if type == 'hidden' and visible != '': addline(value)
+                if type == 'hidden' and visible != False: addline(value)
                 addline('    </td>')
                 addline('  </tr>')
         

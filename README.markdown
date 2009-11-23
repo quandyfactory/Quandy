@@ -22,11 +22,23 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.23
+* Version: 0.3
 
-* Release Date: 2009-10-23
+* Release Date: 2009-11-22
 
 ## Revision History
+
+### Version: 0.3
+
+* Release Date: 2009-11-22
+
+* Changes:
+
+    * Fixed bug in tools.sql_date() that was causing the default date to be 7 days ago
+    * Fixed bug in tools.mark_it_up() and updated the html regex
+    * Added tools.validate_email()
+    * Added tools.validate_password()
+    * Added tools.generate_random_password()
 
 ### Version: 0.23
 
