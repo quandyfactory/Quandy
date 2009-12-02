@@ -35,6 +35,7 @@ Released under the GNU General Public Licence, Version 2:
 * Changes:
 
     * Fixed bug in tools.string_to_date() that unfairly failed valid date strings
+    * Added tools.make_list_from_string() to make a list out of delimited (whitespace, comma, semicolon) strings
 
 ### Version: 0.3
 

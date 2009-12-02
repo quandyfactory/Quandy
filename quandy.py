@@ -417,6 +417,21 @@ class Tools:
         import random
         return '%s%s' % (prefix, str(random.random()).replace('.',''))
         
+    def make_list_from_string(self, astring):
+        """
+        Takes a delimited string (any combination of whitespace, commas, and semicolons) and returns a list
+        """
+        delimiters = ['\t', '\n', '\x0b', '\x0c', '\r', ',', ';', ' ']
+
+        for delim in delimiters:
+            astring = astring.replace(delim, ' ')
+            
+        while '  ' in astring:
+            astring = astring.replace('  ', ' ')
+
+        astring = astring.strip()
+        alist = astring.split(' ')
+        return alist
 
 
 
