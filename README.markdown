@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.3
+* Version: 0.31
 
-* Release Date: 2009-11-22
+* Release Date: 2009-12-01
 
 ## Revision History
+
+### Version: 0.31
+
+* Release Date: 2009-12-01
+
+* Changes:
+
+    * Fixed bug in tools.string_to_date() that unfairly failed valid date strings
 
 ### Version: 0.3
 

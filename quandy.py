@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.3'
-__releasedate__ = '2009-11-22'
+__version__ = '0.31'
+__releasedate__ = '2009-12-01'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -207,7 +207,7 @@ class Tools:
         # didn't fail any tests
         return True
 
-    def generate_random_password(self, length=8):
+    def generate_random_password(self, pswd_len=8):
         """
         Generates a random password including numbers, uppercase letters and lowercase letters.
         Default length is 8 characters.
@@ -215,7 +215,7 @@ class Tools:
         validchars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
         password = []
         import random
-        for x in xrange(length):
+        for eachchar in xrange(pswd_len):
             password.append(validchars[random.randrange(0,len(validchars)-1)])
         return ''.join(password)
 
@@ -293,13 +293,13 @@ class Tools:
         """
         Converts a string in the form YYYY/MM/DD or YYYY-MM-DD and converts it to a python date
         """
-        if len(strdate) != 10:
-            return False
         if '/' in strdate:
             delimiter = '/'
         elif '-' in strdate:
             delimiter = '-'
         datelist = strdate.split(delimiter)
+        if len(datelist) != 3:
+            return False
         dateconverted = datetime.date(int(datelist[0]), int(datelist[1]), int(datelist[2]))
         return dateconverted
         
