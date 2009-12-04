@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.31'
-__releasedate__ = '2009-12-01'
+__version__ = '0.32'
+__releasedate__ = '2009-12-03'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
