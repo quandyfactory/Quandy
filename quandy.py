@@ -191,19 +191,43 @@ class Tools:
         else:
             return False
 
-    def validate_password(self, username, password1, password2, minlen=8, maxlen=40):
+    def validate_password(self, username, password1, password2, strict=False, minlen=8, maxlen=40):
         """
         Takes two passwords and returns True if they're valid, False if they're not valid.
         Default minimum length is 8 chars, maximum length is 40 chars
         """
         if password1 != password2:
-            return 'Entered asswords do not match'
+            return 'Entered passwords do not match'
         if len(password1) < minlen:
-            return 'Password must be at least 8 characters in length'
+            return 'Password must be at least %s characters in length' % minlen
         if len(password1) > maxlen:
-            return 'Password cannot be more than 40 characters in length'
+            return 'Password cannot be more than %s characters in length' % maxlen
         if password1 == username:
             return 'Password must not be the same as username'
+        if strict == True:
+
+            group_1 = 'abcdefghijklmnopqrstuvwxyz' # lowercase letters
+            group_2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' # uppercase letters
+            group_3 = '0123456789' # numerals
+            
+            in_group_1 = 0
+            in_group_2 = 0
+            in_group_3 = 0
+            in_group_4 = 0 # characters that don't fall into group 1, 2, or 3
+            
+            for letter in password1:
+                if letter in group_1:
+                    in_group_1 = 1
+                if letter in group_2:
+                    in_group_2 = 1
+                if letter in group_3:
+                    in_group_3 = 1
+                if letter not in '%s%s%s' % (group_1, group_2, group_3):
+                    in_group_4 = 1
+            
+            if in_group_1 + in_group_2 + in_group_3 + in_group_4 < 3:
+                return 'Password must contain characters from at least three of the following character groups: lowercase letters, uppercase letters, numerals, and other symbols.'
+
         # didn't fail any tests
         return True
 

@@ -22,11 +22,21 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.31
+* Version: 0.32
 
-* Release Date: 2009-12-01
+* Release Date: 2009-12-03
 
 ## Revision History
+
+### Version: 0.32
+
+* Release Date: 2009-12-03
+
+* Changes:
+
+    * Fixed bug in tools.validate_password that hard-coded response messages if passwords are too short or too long
+    * Fixed typo in tools.validate_password that spells it "assword". Nice.
+    * Added optional `strict` parameter to tools.validate_password (default is `False`) so it must contain at least three of four character groups.
 
 ### Version: 0.31
 
