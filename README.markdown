@@ -22,11 +22,20 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.32
+* Version: 0.33
 
-* Release Date: 2009-12-03
+* Release Date: 2009-12-17
 
 ## Revision History
+
+### Version: 0.33
+
+* Release Date: 2009-12-17
+
+* Changes:
+
+    * Changed default nocache in Html.write() to `False`.
+    * Added "rss" parameter to Html.write() to add an RSS autodiscovery meta-tag.
 
 ### Version: 0.32
 
@@ -37,6 +46,7 @@ Released under the GNU General Public Licence, Version 2:
     * Fixed bug in tools.validate_password that hard-coded response messages if passwords are too short or too long
     * Fixed typo in tools.validate_password that spells it "assword". Nice.
     * Added optional `strict` parameter to tools.validate_password (default is `False`) so it must contain at least three of four character groups.
+
 
 ### Version: 0.31
 

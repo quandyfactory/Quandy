@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.32'
-__releasedate__ = '2009-12-03'
+__version__ = '0.33'
+__releasedate__ = '2009-12-17'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -28,7 +28,7 @@ class Html:
         #initialize values
         pass
         
-    def write(self, body_content = '', site_domain='http://localhost/', site_name='Default Site Name', css_path='/static/styles/', css_files=[], css_extend=[], js_path='/static/scripts/', js_files=[], js_extend=[], page_title='Default Page Title', page_author='Default Page Author', doctype='html 4 strict', lang='en', charset='UTF-8', favicon_url='/static/favicon.ico', nocache=True):
+    def write(self, body_content = '', site_domain='http://localhost/', site_name='Default Site Name', css_path='/static/styles/', css_files=[], css_extend=[], js_path='/static/scripts/', js_files=[], js_extend=[], page_title='Default Page Title', page_author='Default Page Author', doctype='html 4 strict', lang='en', charset='UTF-8', favicon_url='/static/favicon.ico', nocache=False, rss=''):
         """
         Parameters:
         site_domain - web domain for your site
@@ -73,7 +73,10 @@ class Html:
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
         addline('    <meta http-equiv="Content-Style-Type" content="text/css">') # so Total Validator tells me
         addline('    <meta name="generator" content="Quandy %s; url=http://quandyfactory.com/projects/quandy"%s>' % (__version__, closetag))
-        if nocache == True: addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
+        if nocache == True: 
+            addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
+        if rss != '':
+            addline('    <link href="%s" rel="alternate" title="RSS" type="application/rss+xml" />' % (rss))
         addline('    <link rel="shortcut icon" href="%s"%s>' % (favicon_url, closetag))
         addline('    <title>%s - %s</title>' % (page_title, site_name))
         for file in css_files:
