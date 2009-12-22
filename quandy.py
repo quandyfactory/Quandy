@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.33'
-__releasedate__ = '2009-12-17'
+__version__ = '0.34'
+__releasedate__ = '2009-12-21'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -76,7 +76,7 @@ class Html:
         if nocache == True: 
             addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
         if rss != '':
-            addline('    <link href="%s" rel="alternate" title="RSS" type="application/rss+xml" />' % (rss))
+            addline('    <link href="%s" rel="alternate" title="RSS" type="application/rss+xml"%s>' % (rss, closetag))
         addline('    <link rel="shortcut icon" href="%s"%s>' % (favicon_url, closetag))
         addline('    <title>%s - %s</title>' % (page_title, site_name))
         for file in css_files:

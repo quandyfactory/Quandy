@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.33
+* Version: 0.34
 
-* Release Date: 2009-12-17
+* Release Date: 2009-12-21
 
 ## Revision History
+
+### Version: 0.34
+
+* Release Date: 2009-12-21
+
+* Changes:
+
+    * Fixed rss meta tag - only ends with ` />` if doctype = XHTML.
 
 ### Version: 0.33
 
@@ -36,6 +44,7 @@ Released under the GNU General Public Licence, Version 2:
 
     * Changed default nocache in Html.write() to `False`.
     * Added "rss" parameter to Html.write() to add an RSS autodiscovery meta-tag.
+
 
 ### Version: 0.32
 
