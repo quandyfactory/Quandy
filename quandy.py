@@ -3,20 +3,275 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.34'
-__releasedate__ = '2009-12-21'
+__version__ = '0.4'
+__releasedate__ = '2010-01-06'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
 __copyright__ = 'Copyright (C) 2009 by Ryan McGreal. Licenced under GPL version 2. http://www.gnu.org/licenses/gpl-2.0.html'
 
-import datetime
-date = datetime.date.today() #legacy saved for now for compatibility - but deprecated
-today = datetime.date.today()
-day = datetime.timedelta(days=1)
-
 import hashlib # for password hash function
 import re # for the fix_1252_codes function
+import calendar
+import datetime
+delta = datetime.timedelta(days=1)
+day = datetime.timedelta(days=1) # legacy code
+today = datetime.datetime.date(datetime.datetime.now())
+tomorrow = today + delta
+yesterday = today - delta
+
+class Cal:
+    """
+    Creates an HTML calendar, with some help from the python standard calendar module.
+    
+    Properties:
+    
+    * months
+        tuple of month names
+        index 0 is blank so January is on 1
+    * weekays
+        tuple of weekday names
+        Sunday is at 0, Saturday is at 6
+    * months_display
+        int specifying how many characters of month names to display
+        default is 10 (i.e. every letter)
+    * weeks_display
+        int specifying how many characters of weekday names to display
+        default is 3
+    * year
+        int specifying the year
+        default is current year
+    * month
+        int specifying the month
+        default is current month
+    * day
+        int specifying the highlighted day
+        default is current day
+    * month_start
+        datetime.date specifying first day of month
+    * month_start_weekday
+        int specifying weekday of first day of month
+    * month_end
+        datetime.date specifying last day of month
+    * month_end_weekday
+        int specifying weekday of first day of month
+    * id
+        string specifying id attribute of calendar `<table>` element
+        default is 'calendar_id'
+    * classname
+        string specifying class attribute of calendar `<table>` element
+        default is ''
+    * title
+        string specifying title of calendar
+    * caption
+        bool specifying whether to display title in `<caption>` element
+    * url
+        string specifying the base URL of the calendar application
+    * events
+        list specifying any events to be displayed on the calendar
+        events take the form of a dict `{ datetime.date: details }`
+        add events via `add_event()` method
+        delete events via `delete_event()` method
+        
+    Methods:
+    
+    * add_event(eventdate, details)
+        adds an event to be displayed
+    * delete_event(index)
+        deletes an event from events
+    * get_prev_year(year, month)
+        takes current year and month and returns year and month of previous year
+    * get_prev_month(year, month)
+        takes current year and month and returns year and month of previous month
+    * get_next_month(year, month)
+        takes current year and month and returns year and month of next month
+    * get_next_year(year, month)
+        takes current year and month and returns year and month of next year
+    * write()
+        writes out a calendar in HTML format
+        includes any events on applicable dates
+    """
+    
+    def __init__(self):
+        self.months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
+        self.weekdays = ('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+        
+        self.months_display = 10 # how many characters to display
+        self.weekdays_display = 3 # how many characters to display
+        
+        self.year = today.year
+        self.month = today.month
+        self.day = today.day
+        
+        self.month_start = datetime.date(self.year, self.month, 1)
+        self.month_start_weekday = self.month_start.weekday()
+        self.month_end = datetime.date(self.year, self.month, calendar.monthrange(self.year, self.month)[1])
+        self.month_end_weekday = self.month_end.weekday()
+        
+        self.id = 'calendar_id'
+        self.classname = ''
+        
+        self.title = 'Calendar'
+        self.caption = True
+        
+        self.url = '/calendar/'
+        
+        self.events = [] # events stored in the list as tuples ( date: details )
+    
+    def add_event(self, eventdate, details):
+        """
+        Adds an event to be displayed on the calendar.
+        - eventdate is datetime.date type
+        - details is string
+        """
+        if type(eventdate).__name__ != 'date':
+            raise TypeError, 'eventdate must be type datetime.date, got %s instead' % type(eventdate).__name__
+        self.events.append( ( eventdate, details, ) )
+    
+    def delete_event(self, index):
+        """
+        Takes a list index and deletes the event at that index
+        """
+        del(self.events[index])
+    
+    def get_prev_year(self, year=today.year, month=today.month):
+        """
+        Takes year and month and returns the previous year's year and month.
+        """
+        outyear = year - 1
+        outmonth = month
+        return (outyear, outmonth)
+ 
+    def get_next_year(self, year=today.year, month=today.month):
+        """
+        Takes year and month and returns the next year's year and month.
+        """
+        outyear = year + 1
+        outmonth = month
+        return (outyear, outmonth)
+        
+    def get_prev_month(self, year=today.year, month=today.month):
+        """
+        Takes year and month and returns the previous month's year and month.
+        """
+        if month == 1:
+            outyear = year - 1
+            outmonth = 12
+        else:
+            outyear = year
+            outmonth = month - 1
+        return (outyear, outmonth)
+ 
+    def get_next_month(self, year=today.year, month=today.month):
+        """
+        Takes year and month and returns the next month's year and month.
+        """
+        if month == 12:
+            outyear = year + 1
+            outmonth = 1
+        else:
+            outyear = year
+            outmonth = month + 1
+        return (outyear, outmonth)
+ 
+    def write(self):
+        """
+        Returns an HTML calendar with all events posted
+        """
+        output = []
+        addline = output.append
+        
+        caltools = calendar.Calendar()
+        caltools.setfirstweekday(6) # sets Sunday as the first weekday
+        
+        addline('')
+        addline('<table id="%s" class="%s">' % (self.id, self.classname))
+        if self.caption == True:
+            addline('<caption>%s</caption>' % (self.title, ))
+        addline('<thead id="%s_thead" class="%s_thead">' % (self.id, self.classname))
+        
+        # calendar navigation
+        addline('<tr id="%s_nav">' % (self.id))
+        addline('<th id="%s_prev_year" title="Prev. Year"><a href="%s?y=%s&amp;m=%s">&#171;</a></th>' % (
+            self.id, self.url, self.get_prev_year(self.year, self.month)[0],
+            self.get_prev_year(self.year, self.month)[1], )
+            )
+        addline('<th id="%s_prev_month" title="Prev. Month"><a href="%s?y=%s&amp;m=%s">&#8249;</a></th>' % (
+            self.id, self.url, self.get_prev_month(self.year, self.month)[0],
+            self.get_prev_month(self.year, self.month)[1], )
+            )
+        addline('<th colspan="3"><div>%s %s</div></th>' % (
+            self.months[self.month][:self.months_display], self.year)
+            )
+        addline('<th id="%s_next_month" title="Next Month"><a href="%s?y=%s&amp;m=%s">&#8250;</a></th>' % (
+            self.id, self.url, self.get_next_month(self.year, self.month)[0],
+            self.get_next_month(self.year, self.month)[1], )
+            )
+        addline('<th id="%s_next_year" title="Next Year"><a href="%s?y=%s&amp;m=%s">&#187;</a></th>' % (
+            self.id, self.url, self.get_next_year(self.year, self.month)[0],
+            self.get_next_year(self.year, self.month)[1], )
+            )
+        addline('</tr>')
+        
+        # weekday names
+        addline('<tr>')
+        for weekday in self.weekdays:
+            if weekday == 'Sunday' or weekday == 'Saturday':
+                this_weekday_class = 'weekend'
+            else:
+                this_weekday_class = ''
+            addline('<th class="%s"><div>%s</div></th>' % (this_weekday_class, weekday[:self.weekdays_display]))
+        addline('</tr>')
+        
+        addline('</thead>')
+        addline('<tbody>')
+        
+        #start writing calendar days
+        itermonthdates = caltools.itermonthdates(self.year, self.month) #produces a date iterator
+        col = 0
+        for monthdate in itermonthdates:
+            if col == 0:
+                addline('<tr>')
+ 
+            events_this_day = []
+            for event in self.events:
+                #print event # testing only
+                if event[0] == monthdate:
+                    events_this_day.append(event[1])
+            
+            if monthdate == today:
+                today_note = ' (Today)'
+                today_class = 'today'
+            elif monthdate == tomorrow:
+                today_note = ' (Tomorrow)'
+                today_class = 'tomorrow'
+            elif monthdate == yesterday:
+                today_note = ' (Yesterday)'
+                today_class = 'yesterday'
+            else:
+                today_note = ''
+                today_class = ''
+            
+            if col == 0 or col == 6:
+                today_class = "weekend"
+            
+            addline('<td class="%s" title="%s, %s %s, %s%s"><div>%s</div>%s</td>' % (
+                today_class, self.weekdays[col], self.months[monthdate.month], monthdate.day,
+                monthdate.year, today_note, monthdate.day, '\n'.join(events_this_day))
+                )
+            
+            col += 1
+            
+            if col > 6:
+                addline('</tr>')
+                col = 0
+                
+        addline('</tbody>')
+        addline('</table>')
+        
+        return '\n'.join(output)
+
+
 
 class Html:
     """
