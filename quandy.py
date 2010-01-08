@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.4'
-__releasedate__ = '2010-01-06'
+__version__ = '0.41'
+__releasedate__ = '2010-01-07'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -241,21 +241,22 @@ class Cal:
             
             if monthdate == today:
                 today_note = ' (Today)'
-                today_class = 'today'
+                today_class = 'date today'
             elif monthdate == tomorrow:
                 today_note = ' (Tomorrow)'
-                today_class = 'tomorrow'
+                today_class = 'date tomorrow'
             elif monthdate == yesterday:
                 today_note = ' (Yesterday)'
-                today_class = 'yesterday'
+                today_class = 'date yesterday'
             else:
                 today_note = ''
-                today_class = ''
+                today_class = 'date'
             
             if col == 0 or col == 6:
                 today_class = "weekend"
             
-            addline('<td class="%s" title="%s, %s %s, %s%s"><div>%s</div>%s</td>' % (
+            addline('<td id="%s_cell_%s-%s-%s" class="%s" title="%s, %s %s, %s%s"><div>%s</div>%s</td>' % (
+                self.id, monthdate.year, monthdate.month, monthdate.day,
                 today_class, self.weekdays[col], self.months[monthdate.month], monthdate.day,
                 monthdate.year, today_note, monthdate.day, '\n'.join(events_this_day))
                 )

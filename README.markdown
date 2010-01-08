@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.4
+* Version: 0.41
 
-* Release Date: 2010-01-06
+* Release Date: 2010-01-07
 
 ## Revision History
+
+### Version: 0.41
+
+* Release Date: 2010-01-07
+
+* Changes:
+
+    * Added td id and fixed div in Cal.write()
 
 ### Version: 0.4
 
