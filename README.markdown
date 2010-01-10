@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.41
+* Version: 0.42
 
-* Release Date: 2010-01-07
+* Release Date: 2010-01-10
 
 ## Revision History
+
+### Version: 0.42
+
+* Release Date: 2010-01-10
+
+* Changes:
+
+    * Fixed calendar colour when today is a weekend.
 
 ### Version: 0.41
 
