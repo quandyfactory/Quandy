@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.42
+* Version: 0.43
 
-* Release Date: 2010-01-10
+* Release Date: 2010-05-20
 
 ## Revision History
+
+### Version: 0.43
+
+* Release Date: 2010-05-20
+
+* Changes:
+
+    * Added ability to specify on which weekday the week starts (default is Sunday)
 
 ### Version: 0.42
 
