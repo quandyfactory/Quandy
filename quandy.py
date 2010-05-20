@@ -8,7 +8,7 @@ Quandy plays nice with Web.py and SQLAlchemy.
 
 
 
-__version__ = '0.42'
+__version__ = '0.43'
 
 __releasedate__ = '2010-01-07'
 
