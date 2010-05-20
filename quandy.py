@@ -223,11 +223,7 @@ class Cal:
         addline('</tr>')
         
         # weekday names
-        addline('Testing: self.weekday_start = %s<br>' % (self.weekday_start))
-        
         weekday_names = [self.wrap_weekdays(x) for x in range(self.weekday_start, self.weekday_start+7)]
-        addline('Testing: weekday_names = %s<br>' % str(weekday_names))
-        
         addline('<tr>')
         for weekday in weekday_names:
             if weekday == 'Sunday' or weekday == 'Saturday':
