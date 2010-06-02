@@ -28,7 +28,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ## Revision History
 
-### Version: 0.44
+### Version: 0.45
 
 * Release Date: 2010-06-01
 
