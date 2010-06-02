@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.44'
+__version__ = '0.45'
 __releasedate__ = '2010-06-01'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -654,10 +654,8 @@ class Tools:
         Takes a string and returns it in proper case (initial caps)
         """
         text = text.lower()
-        text = ' '.join(self.capitalize(i) for i in text.split(' '))
-        text = '-'.join(self.capitalize(i) for i in text.split('-'))
-        text = '"'.join(self.capitalize(i) for i in text.split('"'))
-        text = "'".join(self.capitalize(i) for i in text.split("'"))
+        for char in ' -"\'':
+            text = char.join(self.capitalize(i) for i in text.split(char))
         text = text.replace("'S ", "'s ") # fix incorrect capitalize on possessive s
         if names==True:
             text = 'Mc'.join(self.capitalize(i) for i in text.split('Mc'))

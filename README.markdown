@@ -22,7 +22,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.44
+* Version: 0.45
 
 * Release Date: 2010-06-01
 
@@ -34,7 +34,16 @@ Released under the GNU General Public Licence, Version 2:
 
 * Changes:
 
+    * Slightly refactored Tools.pcase().
+
+### Version: 0.44
+
+* Release Date: 2010-06-01
+
+* Changes:
+
     * Moved javascript file imports to the bottom of the HTML code, below the </body> tag.
+
 
 ### Version: 0.43
 
