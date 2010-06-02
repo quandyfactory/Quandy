@@ -1,10 +1,10 @@
 """
-Quandy is a sweet, simple library to help you create web applications with Python. 
+Quandy is a sweet, simple library to help you create web applications with Python.
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.43'
-__releasedate__ = '2010-05-20'
+__version__ = '0.44'
+__releasedate__ = '2010-06-01'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -23,9 +23,9 @@ yesterday = today - delta
 class Cal:
     """
     Creates an HTML calendar, with some help from the python standard calendar module.
-    
+
     Properties:
-    
+
     * months
         tuple of month names
         index 0 is blank so January is on 1
@@ -72,9 +72,9 @@ class Cal:
         events take the form of a dict `{ datetime.date: details }`
         add events via `add_event()` method
         delete events via `delete_event()` method
-        
+
     Methods:
-    
+
     * add_event(eventdate, details)
         adds an event to be displayed
     * delete_event(index)
@@ -91,33 +91,33 @@ class Cal:
         writes out a calendar in HTML format
         includes any events on applicable dates
     """
-    
+
     def __init__(self):
         self.months = ('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
         self.weekdays = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', )
-        
+
         self.months_display = 10 # how many characters to display
         self.weekdays_display = 3 # how many characters to display
-        
+
         self.year = today.year
         self.month = today.month
         self.day = today.day
-        
+
         self.month_start = datetime.date(self.year, self.month, 1)
         self.month_start_weekday = self.month_start.weekday()
         self.month_end = datetime.date(self.year, self.month, calendar.monthrange(self.year, self.month)[1])
         self.month_end_weekday = self.month_end.weekday()
 
         self.weekday_start = 6 # by default, weekdays start on sunday
-        
+
         self.id = 'calendar_id'
         self.classname = ''
-        
+
         self.title = 'Calendar'
         self.caption = True
-        
+
         self.url = '/calendar/'
-        
+
         self.events = [] # events stored in the list as tuples ( date: details )
 
     def wrap_weekdays(self, val):
@@ -126,7 +126,7 @@ class Cal:
         """
         if val > 6: val = val-7
         return self.weekdays[val]
-    
+
     def add_event(self, eventdate, details):
         """
         Adds an event to be displayed on the calendar.
@@ -136,13 +136,13 @@ class Cal:
         if type(eventdate).__name__ != 'date':
             raise TypeError, 'eventdate must be type datetime.date, got %s instead' % type(eventdate).__name__
         self.events.append( ( eventdate, details, ) )
-    
+
     def delete_event(self, index):
         """
         Takes a list index and deletes the event at that index
         """
         del(self.events[index])
-    
+
     def get_prev_year(self, year=today.year, month=today.month):
         """
         Takes year and month and returns the previous year's year and month.
@@ -150,7 +150,7 @@ class Cal:
         outyear = year - 1
         outmonth = month
         return (outyear, outmonth)
- 
+
     def get_next_year(self, year=today.year, month=today.month):
         """
         Takes year and month and returns the next year's year and month.
@@ -158,7 +158,7 @@ class Cal:
         outyear = year + 1
         outmonth = month
         return (outyear, outmonth)
-        
+
     def get_prev_month(self, year=today.year, month=today.month):
         """
         Takes year and month and returns the previous month's year and month.
@@ -170,7 +170,7 @@ class Cal:
             outyear = year
             outmonth = month - 1
         return (outyear, outmonth)
- 
+
     def get_next_month(self, year=today.year, month=today.month):
         """
         Takes year and month and returns the next month's year and month.
@@ -182,23 +182,23 @@ class Cal:
             outyear = year
             outmonth = month + 1
         return (outyear, outmonth)
- 
+
     def write(self):
         """
         Returns an HTML calendar with all events posted
         """
         output = []
         addline = output.append
-        
+
         caltools = calendar.Calendar()
         caltools.setfirstweekday(self.weekday_start) # sets Sunday as the first weekday
-        
+
         addline('')
         addline('<table id="%s" class="%s">' % (self.id, self.classname))
         if self.caption == True:
             addline('<caption>%s</caption>' % (self.title, ))
         addline('<thead id="%s_thead" class="%s_thead">' % (self.id, self.classname))
-        
+
         # calendar navigation
         addline('<tr id="%s_nav">' % (self.id))
         addline('<th id="%s_prev_year" title="Prev. Year"><a href="%s?y=%s&amp;m=%s">&#171;</a></th>' % (
@@ -221,7 +221,7 @@ class Cal:
             self.get_next_year(self.year, self.month)[1], )
             )
         addline('</tr>')
-        
+
         # weekday names
         weekday_names = [self.wrap_weekdays(x) for x in range(self.weekday_start, self.weekday_start+7)]
         addline('<tr>')
@@ -232,23 +232,23 @@ class Cal:
                 this_weekday_class = ''
             addline('<th class="%s"><div>%s</div></th>' % (this_weekday_class, weekday[:self.weekdays_display]))
         addline('</tr>')
-        
+
         addline('</thead>')
         addline('<tbody>')
-        
+
         #start writing calendar days
         itermonthdates = caltools.itermonthdates(self.year, self.month) #produces a date iterator
         col = 0
         for monthdate in itermonthdates:
             if col == 0:
                 addline('<tr>')
- 
+
             events_this_day = []
             for event in self.events:
                 #print event # testing only
                 if event[0] == monthdate:
                     events_this_day.append(event[1])
-            
+
             if monthdate == today:
                 today_note = ' (Today)'
                 today_class = 'date today'
@@ -261,25 +261,25 @@ class Cal:
             else:
                 today_note = ''
                 today_class = 'date'
-            
+
             if weekday_names[col] == 'Saturday' or weekday_names[col] == 'Sunday':
                 today_class = "weekend"
-            
+
             addline('<td id="%s_cell_%s-%s-%s" class="%s" title="%s, %s %s, %s%s"><div>%s</div>%s</td>' % (
                 self.id, monthdate.year, monthdate.month, monthdate.day,
                 today_class, weekday_names[col], self.months[monthdate.month], monthdate.day,
                 monthdate.year, today_note, monthdate.day, '\n'.join(events_this_day))
                 )
-            
+
             col += 1
-            
+
             if col > 6:
                 addline('</tr>')
                 col = 0
-                
+
         addline('</tbody>')
         addline('</table>')
-        
+
         return '\n'.join(output)
 
 
@@ -293,7 +293,7 @@ class Html:
     def __init__(self):
         #initialize values
         pass
-        
+
     def write(self, body_content = '', site_domain='http://localhost/', site_name='Default Site Name', css_path='/static/styles/', css_files=[], css_extend=[], js_path='/static/scripts/', js_files=[], js_extend=[], page_title='Default Page Title', page_author='Default Page Author', doctype='html 4 strict', lang='en', charset='UTF-8', favicon_url='/static/favicon.ico', nocache=False, rss=''):
         """
         Parameters:
@@ -339,7 +339,7 @@ class Html:
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
         addline('    <meta http-equiv="Content-Style-Type" content="text/css">') # so Total Validator tells me
         addline('    <meta name="generator" content="Quandy %s; url=http://quandyfactory.com/projects/quandy"%s>' % (__version__, closetag))
-        if nocache == True: 
+        if nocache == True:
             addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
         if rss != '':
             addline('    <link href="%s" rel="alternate" title="RSS" type="application/rss+xml"%s>' % (rss, closetag))
@@ -349,13 +349,16 @@ class Html:
             addline('    <style type="text/css">@import "%s%s";</style>' % (css_path, file))
         for file in css_extend:
             addline('    <style type="text/css">@import "%s%s";</style>' % (css_path, file))
+
+        addline('  </head>\n  <body>')
+        addline(body_content)
+        addline('  </body>')
+
         for file in js_files:
             addline('    <script type="text/javascript" src="%s%s"></script>' % (js_path, file))
         for file in js_extend:
             addline('    <script type="text/javascript" src="%s%s"></script>' % (js_path, file))
-        addline('  </head>\n  <body>')
-        addline(body_content)
-        addline('  </body>')
+
         addline('</html>')
         return '\n'.join(output)
 
@@ -368,7 +371,7 @@ class Html:
         tagname - string
         innertext - string (optional - default = '')
         attributes - dictionary (optional - default = {})
-        
+
         output:
         Returns an HTML element as a string.
         """
@@ -431,8 +434,8 @@ cp_1252_chars = {
     u"\x9C": u"\u0153", # LATIN SMALL LIGATURE OE
     u"\x9E": u"\u017E", # LATIN SMALL LETTER Z WITH CARON
     u"\x9F": u"\u0178", # LATIN CAPITAL LETTER Y WITH DIAERESIS
-}        
-    
+}
+
 class Tools:
     """
     Various tools for easing the creation of web pages.
@@ -478,12 +481,12 @@ class Tools:
             group_1 = 'abcdefghijklmnopqrstuvwxyz' # lowercase letters
             group_2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' # uppercase letters
             group_3 = '0123456789' # numerals
-            
+
             in_group_1 = 0
             in_group_2 = 0
             in_group_3 = 0
             in_group_4 = 0 # characters that don't fall into group 1, 2, or 3
-            
+
             for letter in password1:
                 if letter in group_1:
                     in_group_1 = 1
@@ -493,7 +496,7 @@ class Tools:
                     in_group_3 = 1
                 if letter not in '%s%s%s' % (group_1, group_2, group_3):
                     in_group_4 = 1
-            
+
             if in_group_1 + in_group_2 + in_group_3 + in_group_4 < 3:
                 return 'Password must contain characters from at least three of the following character groups: lowercase letters, uppercase letters, numerals, and other symbols.'
 
@@ -525,25 +528,25 @@ class Tools:
             if isinstance(text, type("")):
                 text = unicode(text, "iso-8859-1")
             text = re.sub(u"[\x80-\x9f]", fixup, text)
-        return text 
- 
+        return text
+
     def single_or_plural(self, value, single_string='', plural_string='s'):
         """
-        Takes a value and an optional single_string (default '') and plural_string (default 's'). 
+        Takes a value and an optional single_string (default '') and plural_string (default 's').
         Returns the single_string if the value = 1 or the plural_string if the value != 1.
         """
         if value == 1:
             return single_string
         else:
             return plural_string
- 
+
     def make_hash(self, password, salt='saltydog', type='md4'):
         """
         Takes a plain text password and returns a salted hash.
         """
         fullpassword = password+salt
-        return hashlib.new(type, fullpassword.encode('utf-16le')).hexdigest().upper() 
-        
+        return hashlib.new(type, fullpassword.encode('utf-16le')).hexdigest().upper()
+
     def weekday_name(self, adate):
         """
         Takes a date and returns the weekday name for that date.
@@ -581,7 +584,7 @@ class Tools:
         Takes a year, month, day integer and returns a date in the form YYYY/MM/DD
         """
         return '%04d%s%02d%s%02d' % (yr, delimiter, mt, delimiter, dy)
-    
+
     def string_to_date(self, strdate):
         """
         Converts a string in the form YYYY/MM/DD or YYYY-MM-DD and converts it to a python date
@@ -595,7 +598,7 @@ class Tools:
             return False
         dateconverted = datetime.date(int(datelist[0]), int(datelist[1]), int(datelist[2]))
         return dateconverted
-        
+
     def compare_dates(self, date1, date2):
         """
         Returns the number of days between date1 and date2
@@ -606,7 +609,7 @@ class Tools:
             return False
         datediff = date2 - date1
         return datediff.days
-    
+
     def friendly_date(self, uglydate, monthchars=3):
         """
         Takes a YYYY/MM/DD date and returns the date string in MMM D, YYYY format
@@ -624,7 +627,7 @@ class Tools:
                 thismonth = months[int(ud[1])][:monthchars]
             else:
                 thismonth = months[int(ud[1])]
-            
+
             return '%s %s, %s' % (months[int(ud[1])], ud[2], ud[0])
         else:
             return str(uglydate)
@@ -660,7 +663,7 @@ class Tools:
             text = 'Mc'.join(self.capitalize(i) for i in text.split('Mc'))
             text = 'Mac'.join(self.capitalize(i) for i in text.split('Mac'))
         return text.strip()
-        
+
     def capitalize(self, text):
         """
         Capitalizes a word
@@ -669,16 +672,16 @@ class Tools:
         if len(text) > 0:
             outstr = text[0].capitalize()
             if len(text) > 1:
-                for c in text[1:]: 
+                for c in text[1:]:
                     outstr = outstr + c
         return outstr
-        
+
     def friendly_name(self, uname):
         """
         Takes a lowercase string with underscores _ between words and returns a string of capitalized words with spaces.
         """
         uname = self.pcase(str(uname).replace('_',' '))
-        
+
         if len(uname) != 0:
             finalname=[]
             finalname.append(uname[0].upper())
@@ -690,7 +693,7 @@ class Tools:
             return ''.join(finalname)
         else:
             return uname
-        
+
     def unfriendly_name(self, uname):
         """
         Takes a tring of capitalized words with spaces and returns a lowercase string with underscores between words.
@@ -699,7 +702,7 @@ class Tools:
         uname = uname.replace('&#39;','')
         badchars = ".,!?;/"
         outname = ''.join([c for c in uname if c not in badchars])
-        while '__' in outname: 
+        while '__' in outname:
             outname = outname.replace('__','_')
         return outname
 
@@ -709,7 +712,7 @@ class Tools:
         """
         import random
         return '%s%s' % (prefix, str(random.random()).replace('.',''))
-        
+
     def make_list_from_string(self, astring):
         """
         Takes a delimited string (any combination of whitespace, commas, and semicolons) and returns a list
@@ -718,7 +721,7 @@ class Tools:
 
         for delim in delimiters:
             astring = astring.replace(delim, ' ')
-            
+
         while '  ' in astring:
             astring = astring.replace('  ', ' ')
 
@@ -738,9 +741,9 @@ class Form:
     """
     Summary:
     Produces an HTML form.
-    
+
     Parameters:
-    
+
     Id - form id attribute (default is random id)
     Name - form name attribute (default is id)
     Class - form class attribute
@@ -761,7 +764,7 @@ class Form:
 
         Parameters:
         Takes a dictionary with three optional keys:
-        
+
         days - number of days (default = 7)
         start - start date # days before today (default = 0)
         order - 1 = asc, -1 = desc (default = -1)
@@ -777,33 +780,33 @@ class Form:
         while x != end:
             options.append(str(date - (day*(x+fudge))))
             x += order*-1
-        return options    
+        return options
 
     def write(self, formfields = [], id='', name='', classname='', title='', method='post', action='', enctype='application/x-www-form-urlencoded'):
         atts = {}
         output = []
         addline = output.append
         tools = Tools()
-        
+
         if id == '': id = tools.random_id()
         atts['id'] = id
-        
+
         if name == '': name = id
         atts['name'] = name
-        
+
         if method == '': method = 'post'
         atts['method'] = method
-        
+
         if enctype == '': enctype = 'application/x-www-form-urlencoded'
         atts['enctype'] = enctype
 
         if classname != '': atts['class'] = classname
         if action != '': atts['action'] = action
-        
+
         attlist = []
         for k, v in atts.items():
             attlist.append(' %s="%s"' % (k, v))
-        
+
         attstring = ''.join(attlist)
         addline('<form%s>' % attstring)
 
@@ -811,10 +814,10 @@ class Form:
         if title <> '':
              addline('<caption id="%s_caption">%s</caption>\n' % (id, title))
         addline('<tbody id="%s_tbody">' % id)
-        
+
         # form fields
         addline('\n'.join([f for f in formfields]))
-        
+
         addline('</tbody>')
         addline('</table>')
         addline('</form>')
@@ -826,7 +829,7 @@ class Formfield:
     """
     Summary:
     Produces an HTML form element.
-    
+
     Parameters:
     widget        - type of form element (e.g. input, select, textarea)
     id            - id attribute (default is random id)
@@ -854,13 +857,13 @@ class Formfield:
         addline = output.append
         atts = {}
         tools = Tools()
-        
+
         if id == '': id = tools.random_id()
         atts['id'] = id
-        
+
         if name == '': name = id
         atts['name'] = name
-        
+
         if title == '': title = tools.friendly_name(id)
 
         if disabled != '': atts['disabled'] = 'disabled'
@@ -875,7 +878,7 @@ class Formfield:
             addline('    <th title="%s">%s</th>' % (title, title))
             addline('    <td title="%s">' % (title))
             addline('      <select%s>' % (ats))
-    
+
             if leadingoption != '':
                 addline('        <option value="">--</option>')
             for option in options:
@@ -909,7 +912,7 @@ class Formfield:
                 if type == 'hidden' and visible != False: addline(value)
                 addline('    </td>')
                 addline('  </tr>')
-        
+
         # TEXTAREA widget
         elif widget == 'textarea':
             if rows > 0:
@@ -927,7 +930,7 @@ class Formfield:
             addline('    </td>')
             addline('  </tr>')
         return '\n'.join(output)
-        
+
 
 class Handler:
     """
@@ -937,14 +940,14 @@ class Handler:
 
     def __init__(self):
         pass
-        
+
     def get_path_list(self, path):
         html = Html()
         output = []
         addline = output.append
         addline(html.tag('ul','\n'.join([html.tag('li','%s' % p) for p in path])))
         return '\n'.join(output)
-          
+
     def default(self, path, formfields):
         handler = Handler()
         html = Html()
@@ -960,7 +963,7 @@ class Handler:
             body_content='\n'.join(output),
             )
         return page
-    
+
     def error(self, path, formfields):
         handler = Handler()
         html = Html()
@@ -976,4 +979,3 @@ class Handler:
             body_content='\n'.join(output),
             )
         return page
-

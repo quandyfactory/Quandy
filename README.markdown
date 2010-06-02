@@ -1,6 +1,6 @@
 ﻿# Quandy README
 
-Quandy is a sweet, simple library to help you create web applications with Python. 
+Quandy is a sweet, simple library to help you create web applications with Python.
 
 It plays nice with web.py and sqlalchemy.
 
@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.43
+* Version: 0.44
 
-* Release Date: 2010-05-20
+* Release Date: 2010-06-01
 
 ## Revision History
+
+### Version: 0.44
+
+* Release Date: 2010-06-01
+
+* Changes:
+
+    * Moved javascript file imports to the bottom of the HTML code, below the </body> tag.
 
 ### Version: 0.43
 
@@ -35,6 +43,7 @@ Released under the GNU General Public Licence, Version 2:
 * Changes:
 
     * Added ability to specify on which weekday the week starts (default is Sunday)
+
 
 ### Version: 0.42
 
@@ -142,14 +151,14 @@ Released under the GNU General Public Licence, Version 2:
     * Fixed name (oops, no decimals in module names) from quandy0.2 to quandy02
     * Added Tools.single_or_plural(), which takes a value and returns either singular or plural suffix for a word (defaults are '' and 's').
     * Removed colon `:` and hyphen `-` from badchars list in Tools.unfriendly_name
-    
+
 ### Version: 0.2
 
 * Release Date: 2009-10-19
 
 * Changes:
 
-    * Converted all method names to lowercase_with_underscores to conform with [PEP 8](http://www.python.org/dev/peps/pep-0008/) 
+    * Converted all method names to lowercase_with_underscores to conform with [PEP 8](http://www.python.org/dev/peps/pep-0008/)
     * Changed file name to quandy0.2.py to maintain compatibility with apps using quandy.py versions < 0.2.
     * Modified Tools.friendly_date to take an optional monthname length parameter (default 3, i.e. January -> Jan).
     * Removed single quote `'` from badchars list in Tools.unfriendly_name
@@ -187,7 +196,7 @@ Released under the GNU General Public Licence, Version 2:
 
     * Fixed bug in Hml.Write method that didn't correctly display the version of Quandy
     * Fixed bug in Tools.Fix1252Codes that didn't properly import re
-    * Enhanced the functionality of the Tools.PCase function to capitalize hyphenated words and optionally fix mixed-case names (like McGreal) 
+    * Enhanced the functionality of the Tools.PCase function to capitalize hyphenated words and optionally fix mixed-case names (like McGreal)
 
 ### Version: 0.1a
 
@@ -242,4 +251,3 @@ layout.
 [6]: http://webpy.org
 
 [7]: http://www.sqlalchemy.org/
-
