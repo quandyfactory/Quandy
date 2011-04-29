@@ -22,11 +22,27 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.45
+* Version: 0.46
+
+* Release Date: 2011-04-29
+
+## Revision History
+
+### Version: 0.46
+
+* Release Date: 2011-04-29
+
+* Changes:
+
+    * Fixed bug in tools.unfriendly_name that would cause it to choke on non-ASCII characters
+
+### Version: 0.45
 
 * Release Date: 2010-06-01
 
-## Revision History
+* Changes: 
+
+    * Slightly refactored Tools.pcase().
 
 ### Version: 0.44
 
@@ -52,7 +68,6 @@ Released under the GNU General Public Licence, Version 2:
 * Changes:
 
     * Added ability to specify on which weekday the week starts (default is Sunday)
-
 
 ### Version: 0.42
 
@@ -95,7 +110,6 @@ Released under the GNU General Public Licence, Version 2:
     * Changed default nocache in Html.write() to `False`.
     * Added "rss" parameter to Html.write() to add an RSS autodiscovery meta-tag.
 
-
 ### Version: 0.32
 
 * Release Date: 2009-12-03
@@ -105,7 +119,6 @@ Released under the GNU General Public Licence, Version 2:
     * Fixed bug in tools.validate_password that hard-coded response messages if passwords are too short or too long
     * Fixed typo in tools.validate_password that spells it "assword". Nice.
     * Added optional `strict` parameter to tools.validate_password (default is `False`) so it must contain at least three of four character groups.
-
 
 ### Version: 0.31
 
@@ -138,7 +151,6 @@ Released under the GNU General Public Licence, Version 2:
     * Added Tools.sql_date(), which presents the date as a string in the form `YYYY/MM/DD` or `YYYY-MM-DD`.
     * Added Tools.string_to_date(), which takes a string in the form `YYYY/MM/DD` or `YYYY-MM-DD` and converts to a Python date.
     * Added Tools.compare_dates(), takes two dates and returns the difference, in days, between them.
-
 
 ### Version: 0.22
 

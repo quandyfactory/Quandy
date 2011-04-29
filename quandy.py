@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.45'
-__releasedate__ = '2010-06-01'
+__version__ = '0.46'
+__releasedate__ = '2011-04-29'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -338,7 +338,7 @@ class Html:
         addline('    <meta name="author" content="%s"%s>' % (page_author, closetag))
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
         addline('    <meta http-equiv="Content-Style-Type" content="text/css">') # so Total Validator tells me
-        addline('    <meta name="generator" content="Quandy %s; url=http://quandyfactory.com/projects/quandy"%s>' % (__version__, closetag))
+        addline('    <meta name="generator" content="Quandy %s; url=%s"%s>' % (__version__, __homepage__, closetag))
         if nocache == True:
             addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
         if rss != '':
@@ -352,13 +352,13 @@ class Html:
 
         addline('  </head>\n  <body>')
         addline(body_content)
-        addline('  </body>')
 
         for file in js_files:
             addline('    <script type="text/javascript" src="%s%s"></script>' % (js_path, file))
         for file in js_extend:
             addline('    <script type="text/javascript" src="%s%s"></script>' % (js_path, file))
 
+        addline('  </body>')
         addline('</html>')
         return '\n'.join(output)
 
@@ -694,9 +694,12 @@ class Tools:
 
     def unfriendly_name(self, uname):
         """
-        Takes a tring of capitalized words with spaces and returns a lowercase string with underscores between words.
+        Takes a string of capitalized words with spaces and returns a lowercase string with underscores between words.
         """
-        uname = str(uname).replace(' ','_').lower()
+        # uname = str(uname) chokes on non-ascii strings
+        uname = uname.replace(' ','_')
+        uname = uname.lower()
+        
         uname = uname.replace('&#39;','')
         badchars = ".,!?;/"
         outname = ''.join([c for c in uname if c not in badchars])
