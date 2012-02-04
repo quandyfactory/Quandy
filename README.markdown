@@ -34,7 +34,7 @@ Released under the GNU General Public Licence, Version 2:
 
 * Changes:
 
-    * Fixed bug in form so that input, select, textarea container title attributes have any html stripped out of the title
+    * Fixed bug in Formfields() so that input, select, textarea container title attributes have any html stripped out of the title
 
 ### Version: 0.46
 

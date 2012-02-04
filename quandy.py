@@ -923,7 +923,7 @@ class Formfield:
             ats = "".join([' %s="%s"' % (k, v) for k, v in atts.items()])
             addline('  <tr id="%s_tablerow" class="%s_tablerow">' % (id, classname))
             if twolines == False:
-                addline('    <th title="%s">%s</th>\n    <td title="%s">' % (title, title, title))
+                addline('    <th title="%s">%s</th>\n    <td title="%s">' % (tools.strip_html(title), title, tools.strip_html(title)))
             else:
                 addline('    <th colspan="2" title="%s">%s</th>\n  </tr>\n  <tr>' % (tools.strip_html(title), title))
                 addline('    <td colspan="2" title="%s" class="form_textarea">' % (tools.strip_html(title)))
