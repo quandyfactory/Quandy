@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.46
+* Version: 0.47
 
-* Release Date: 2011-04-29
+* Release Date: 2012-02-03
 
 ## Revision History
+
+### Version: 0.47
+
+* Release Date: 2012-02-03
+
+* Changes:
+
+    * Fixed bug in form so that input, select, textarea container title attributes have any html stripped out of the title
 
 ### Version: 0.46
 

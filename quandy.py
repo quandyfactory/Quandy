@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.46'
-__releasedate__ = '2011-04-29'
+__version__ = '0.47'
+__releasedate__ = '2012-02-03'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -869,15 +869,15 @@ class Formfield:
 
         if disabled != '': atts['disabled'] = 'disabled'
         if classname != '': atts['class'] = classname
-
+        tools = Tools()
         # SELECT widget
         if widget == 'select':
             if multiple != '':
                 atts['Multiple'] = 'multiple'
             ats = "".join([' %s="%s"' % (k, v) for k, v in atts.items()])
             addline('  <tr id="%s_tablerow" class="%s_tablerow">' % (id, classname))
-            addline('    <th title="%s">%s</th>' % (title, title))
-            addline('    <td title="%s">' % (title))
+            addline('    <th title="%s">%s</th>' % (tools.strip_html(title), title))
+            addline('    <td title="%s">' % (tools.strip_html(title)))
             addline('      <select%s>' % (ats))
 
             if leadingoption != '':
@@ -906,7 +906,7 @@ class Formfield:
             else:
                 addline('  <tr id="%s_tablerow" class="%s_tablerow">' % (id, classname))
                 if type != 'submit':
-                    addline('    <th title="%s">%s</th>\n    <td title="%s">' % (title, title, title))
+                    addline('    <th title="%s">%s</th>\n    <td title="%s">' % (tools.strip_html(title), title, tools.strip_html(title)))
                 else:
                     addline('    <td colspan="2" title = "%s" class="form_button">' % (title))
                 addline('      <input%s>' % (ats))
@@ -925,8 +925,8 @@ class Formfield:
             if twolines == False:
                 addline('    <th title="%s">%s</th>\n    <td title="%s">' % (title, title, title))
             else:
-                addline('    <th colspan="2" title="%s">%s</th>\n  </tr>\n  <tr>' % (title, title))
-                addline('    <td colspan="2" title = "%s" class="form_textarea">' % (title))
+                addline('    <th colspan="2" title="%s">%s</th>\n  </tr>\n  <tr>' % (tools.strip_html(title), title))
+                addline('    <td colspan="2" title="%s" class="form_textarea">' % (tools.strip_html(title)))
             addline('      <textarea%s>%s</textarea>' % (ats, value))
             addline('    </td>')
             addline('  </tr>')
