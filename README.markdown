@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.47
+* Version: 0.48
 
-* Release Date: 2012-02-03
+* Release Date: 2012-08-03
 
 ## Revision History
+
+### Version: 0.48
+
+* Release Date: 2012-08-03
+
+* Changes:
+
+    * Added 'separator' widget type to Formfield.
 
 ### Version: 0.47
 
