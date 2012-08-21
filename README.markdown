@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.48
+* Version: 0.49
 
-* Release Date: 2012-08-03
+* Release Date: 2012-08-21
 
 ## Revision History
+
+### Version: 0.49
+
+* Release Date: 2012-08-21
+
+* Changes:
+
+    * Replaced `str()` functions with `unicode()` functions.
 
 ### Version: 0.48
 
