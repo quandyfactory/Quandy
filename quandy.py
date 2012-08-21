@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.48'
-__releasedate__ = '2012-08-03'
+__version__ = '0.49'
+__releasedate__ = '2012-08-21'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -630,7 +630,7 @@ class Tools:
 
             return '%s %s, %s' % (months[int(ud[1])], ud[2], ud[0])
         else:
-            return str(uglydate)
+            return unicode(uglydate)
 
     def friendly_month(self, uglymonth):
         """
@@ -647,7 +647,7 @@ class Tools:
         if len(dt) == 2:
             return '%s, %s' % (months[int(dt[1])], dt[0])
         else:
-            return str(uglymonth)
+            return unicode(uglymonth)
 
     def pcase(self, text, names=False):
         """
@@ -678,7 +678,7 @@ class Tools:
         """
         Takes a lowercase string with underscores _ between words and returns a string of capitalized words with spaces.
         """
-        uname = self.pcase(str(uname).replace('_',' '))
+        uname = self.pcase(unicode(uname).replace('_',' '))
 
         if len(uname) != 0:
             finalname=[]
@@ -712,7 +712,7 @@ class Tools:
         Returns a randomized id in the form 'form id_#######' for use in HTML elements that require a distinct id for DOM manipulation.
         """
         import random
-        return '%s%s' % (prefix, str(random.random()).replace('.',''))
+        return '%s%s' % (prefix, unicode(random.random()).replace('.',''))
 
     def make_list_from_string(self, astring):
         """
@@ -885,11 +885,11 @@ class Formfield:
             for option in options:
                 selected = ''
                 if option.__class__() == []:
-                    if retainstate != '' and str(option[0]) == str(value):
+                    if retainstate != '' and unicode(option[0]) == unicode(value):
                         selected = ' selected'
                     addline('        <option value="%s"%s>%s</option>' % (option[0], selected, option[1]))
                 else:
-                    if retainstate != '' and str(option) == str(value):
+                    if retainstate != '' and unicode(option) == unicode(value):
                         selected = ' selected'
                     addline('        <option value="%s"%s>%s</option>' % (option, selected, option))
             addline('      </select>\n    </td>\n  </tr>')
