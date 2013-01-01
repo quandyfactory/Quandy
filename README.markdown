@@ -1,4 +1,4 @@
-﻿# Quandy README
+# Quandy README
 
 Quandy is a sweet, simple library to help you create web applications with Python.
 
@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.49
+* Version: 0.50
 
-* Release Date: 2012-08-21
+* Release Date: 2013-01-01
 
 ## Revision History
+
+### Version 0.50
+
+* Release Date: 2013-01-01
+
+* Changes:
+
+    * Added 'radio' widget to Formfields
 
 ### Version: 0.49
 
@@ -295,3 +303,4 @@ layout.
 [6]: http://webpy.org
 
 [7]: http://www.sqlalchemy.org/
+
