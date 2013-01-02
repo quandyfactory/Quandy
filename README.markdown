@@ -22,11 +22,20 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.50
+* Version: 0.51
 
-* Release Date: 2013-01-01
+* Release Date: 2013-01-02
 
 ## Revision History
+
+### Version 0.51
+
+* Release Date: 2013-01-02
+
+* Changes:
+
+    * Changed `id='name-id` to `id=name_id` in radio ids
+    * Added `id="for_id"` to radio button labels to hang event handlers
 
 ### Version 0.50
 

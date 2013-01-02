@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.50'
-__releasedate__ = '2013-01-01'
+__version__ = '0.51'
+__releasedate__ = '2013-01-02'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -924,8 +924,12 @@ class Formfield:
                     checked = ' checked'
                 addline('<tr class="%s_tablerow">' % (classname))
                 addline('<td colspan="2" class="%s">' % (classname))
-                addline('<label for="%s-%s">' % (id, tools.unfriendly_name(option)))
-                addline('<input type="radio" name="%s" id="%s-%s" value="%s"%s>' % (id, id, tools.unfriendly_name(option), option, checked))
+                addline('<label for="%s_%s" id="for_%s_%s">' % (
+                    id, tools.unfriendly_name(option), id, tools.unfriendly_name(option), )
+                )
+                addline('<input type="radio" name="%s" id="%s_%s" value="%s"%s>' % (
+                    id, id, tools.unfriendly_name(option), option, checked)
+                )
                 addline('%s</label>' % (option))
                 addline('</td>')
                 addline('</tr>')
