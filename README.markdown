@@ -22,11 +22,20 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.51
+* Version: 0.52
 
 * Release Date: 2013-01-02
 
 ## Revision History
+
+### Version 0.52
+
+* Release Date: 2013-01-02
+
+* Changes:
+
+    * Changed `id='name-id` to `id=name_id` in radio ids
+    * Fixed bug in tools.unfriendly_name that created javascript-unfriendly element ids
 
 ### Version 0.51
 

@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.51'
+__version__ = '0.52'
 __releasedate__ = '2013-01-02'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -696,12 +696,11 @@ class Tools:
         """
         Takes a string of capitalized words with spaces and returns a lowercase string with underscores between words.
         """
-        # uname = str(uname) chokes on non-ascii strings
+        uname = unicode(uname)
         uname = uname.replace(' ','_')
         uname = uname.lower()
-        
         uname = uname.replace('&#39;','')
-        badchars = ".,!?;/"
+        badchars = ".,!?;/<>'\"(){}[]"
         outname = ''.join([c for c in uname if c not in badchars])
         while '__' in outname:
             outname = outname.replace('__','_')
