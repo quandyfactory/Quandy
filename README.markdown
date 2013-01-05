@@ -22,11 +22,19 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.52
+* Version: 0.53
 
-* Release Date: 2013-01-02
+* Release Date: 2013-01-05
 
 ## Revision History
+
+### Version 0.53
+
+* Release Date: 2013-01-05
+
+* Changes:
+
+    * Fixed bug in tools.unfriendly_name that created javascript-unfriendly element ids (%)
 
 ### Version 0.52
 

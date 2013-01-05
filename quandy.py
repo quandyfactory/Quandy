@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.52'
-__releasedate__ = '2013-01-02'
+__version__ = '0.53'
+__releasedate__ = '2013-01-05'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -700,7 +700,7 @@ class Tools:
         uname = uname.replace(' ','_')
         uname = uname.lower()
         uname = uname.replace('&#39;','')
-        badchars = ".,!?;/<>'\"(){}[]"
+        badchars = ".,!?;/<>'\"(){}[]%"
         outname = ''.join([c for c in uname if c not in badchars])
         while '__' in outname:
             outname = outname.replace('__','_')
@@ -1006,3 +1006,4 @@ class Handler:
             body_content='\n'.join(output),
             )
         return page
+
