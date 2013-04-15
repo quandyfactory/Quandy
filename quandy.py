@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.53'
-__releasedate__ = '2013-01-05'
+__version__ = '0.54'
+__releasedate__ = '2013-04-15'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -918,18 +918,52 @@ class Formfield:
             addline('<tr><th colspan="2">%s</th></tr>' % (title))
             
             for option in options:
+                if isinstance(option, list):
+                    option_value, option_text = option[0], option[1]
+                else:
+                    option_value, option_text = option, option
                 checked = ''
-                if retainstate != '' and unicode(option) == unicode(value):
+                if retainstate != '' and unicode(option_value) == unicode(value):
                     checked = ' checked'
                 addline('<tr class="%s_tablerow">' % (classname))
                 addline('<td colspan="2" class="%s">' % (classname))
                 addline('<label for="%s_%s" id="for_%s_%s">' % (
-                    id, tools.unfriendly_name(option), id, tools.unfriendly_name(option), )
+                    id, tools.unfriendly_name(option_value), id, tools.unfriendly_name(option_value), )
                 )
                 addline('<input type="radio" name="%s" id="%s_%s" value="%s"%s>' % (
-                    id, id, tools.unfriendly_name(option), option, checked)
+                    id, id, tools.unfriendly_name(option_text), option_value, checked)
                 )
-                addline('%s</label>' % (option))
+                addline('%s</label>' % (option_text))
+                addline('</td>')
+                addline('</tr>')
+
+        # CHECKBOX widget - checkboxes are a type of input but they behave quite differently
+        elif widget == 'checkbox':
+            addline('<tr><th colspan="2">%s</th></tr>' % (title))
+
+            # fix values
+            if not isinstance(value, list):
+                value = [value] # turn value into a list
+
+            value = [unicode(val) for val in value]
+            
+            for option in options:
+                if isinstance(option, list):
+                    option_value, option_text = option[0], option[1]
+                else:
+                    option_value, option_text = option, option
+                checked = ''
+                if retainstate != '' and unicode(option_value) in value:
+                    checked = ' checked="checked"'
+                addline('<tr class="%s_tablerow">' % (classname))
+                addline('<td colspan="2" class="%s">' % (classname))
+                addline('<label for="%s_%s" id="for_%s_%s">' % (
+                    id, tools.unfriendly_name(option_value), id, tools.unfriendly_name(option_value), )
+                )
+                addline('<input type="checkbox" name="%s" id="%s_%s" value="%s"%s>' % (
+                    id, id, tools.unfriendly_name(option_text), option_value, checked)
+                )
+                addline('%s</label>' % (option_text))
                 addline('</td>')
                 addline('</tr>')
 
@@ -1006,4 +1040,3 @@ class Handler:
             body_content='\n'.join(output),
             )
         return page
-
