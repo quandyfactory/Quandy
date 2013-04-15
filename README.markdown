@@ -22,11 +22,20 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.53
+* Version: 0.54
 
-* Release Date: 2013-01-05
+* Release Date: 2013-04-15
 
 ## Revision History
+
+### Version 0.54
+
+* Release Date: 2013-04-15
+
+* Changes:
+
+    * Added 'checkbox' widget to Formfields
+    * Enabled accepting a list of checked values
 
 ### Version 0.53
 
