@@ -22,11 +22,20 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.54
+* Version: 0.55
 
-* Release Date: 2013-04-15
+* Release Date: 2013-04-16
 
 ## Revision History
+
+### Version 0.55
+
+* Release Date: 2013-04-16
+
+* Changes:
+
+    * Added checkbox/radio title class and ID attributes to hook styles
+    * Fixed bug in label for attribute to match input ID
 
 ### Version 0.54
 
@@ -303,9 +312,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ## Requirements and Recommendations
 
-* Python 2.5 or newer (not Python 3)
-
-* python-markdown [http://www.freewisdom.org/projects/python-markdown/][5]
+* Python 2.5 or newer (not Python 3 yet)
 
 * Web.py is a great simple web framework [http://webpy.org][6]
 
@@ -315,8 +322,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ### Packaging
 
-At some point I need to tackle packaging this up either through PyPi or using
-easy_install. In the meantime it's a file.
+At some point I need to tackle packaging this up for pypi. In the meantime it's a file.
 
 ### Better Forms
 
