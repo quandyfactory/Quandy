@@ -22,9 +22,9 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.55
+* Version: 0.56
 
-* Release Date: 2013-04-16
+* Release Date: 2013-06-03
 
 ## Requirements and Recommendations
 
@@ -65,6 +65,15 @@ layout.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.56
+
+* Release Date: 2013-06-03
+
+* Changes:
+
+    * Moved the stylesheet import to the top of the head in Html()
+    * Added HTML5 doctype to Html()
 
 ### Version 0.55
 

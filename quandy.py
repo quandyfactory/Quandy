@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.55'
-__releasedate__ = '2013-04-16'
+__version__ = '0.56'
+__releasedate__ = '2013-06-03'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -317,24 +317,37 @@ class Html:
         output = []
         addline = output.append
         closetag = ''
-        if doctype == 'html 4 transitional':
+        if doctype == 'html5':
+            addline('<!DOCTYPE html>')
+            
+        elif doctype == 'html 4 transitional':
             addline('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">')
             addline('<html lang="%s">' % (lang))
+            
         elif doctype == 'html 4 quirks':
             addline('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">')
             addline('<html lang="%s">' % (lang))
+            
         elif doctype == 'xhtml 1 strict':
             addline('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">')
             addline('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="%s" lang="%s">' % (lang, lang))
             closetag = ' /'
+            
         elif doctype == 'xhtml 1 transitional':
             addline('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">')
             addline('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="%s" lang="%s">' % (lang, lang))
             closetag = ' /'
+            
         else: # default is HTML 4 strict
             addline('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" \n"http://www.w3.org/TR/html4/strict.dtd">')
             addline('<html lang="%s">' % (lang))
+        
         addline('  <head>')
+        for file in css_files:
+            addline('    <style type="text/css">@import "%s%s";</style>' % (css_path, file))
+        for file in css_extend:
+            addline('    <style type="text/css">@import "%s%s";</style>' % (css_path, file))
+
         addline('    <meta name="author" content="%s"%s>' % (page_author, closetag))
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
         addline('    <meta http-equiv="Content-Style-Type" content="text/css">') # so Total Validator tells me
@@ -345,10 +358,6 @@ class Html:
             addline('    <link href="%s" rel="alternate" title="RSS" type="application/rss+xml"%s>' % (rss, closetag))
         addline('    <link rel="shortcut icon" href="%s"%s>' % (favicon_url, closetag))
         addline('    <title>%s - %s</title>' % (page_title, site_name))
-        for file in css_files:
-            addline('    <style type="text/css">@import "%s%s";</style>' % (css_path, file))
-        for file in css_extend:
-            addline('    <style type="text/css">@import "%s%s";</style>' % (css_path, file))
 
         addline('  </head>\n  <body>')
         addline(body_content)
