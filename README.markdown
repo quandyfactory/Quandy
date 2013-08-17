@@ -22,9 +22,9 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.56
+* Version: 0.57
 
-* Release Date: 2013-06-03
+* Release Date: 2013-08-17
 
 ## Requirements and Recommendations
 
@@ -65,6 +65,14 @@ layout.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.57
+
+* Release Date: 2013-08-17
+
+* Changes:
+
+    * Fixed issue with radio formfield: it was displaying id instead of friendly name
 
 ### Version 0.56
 

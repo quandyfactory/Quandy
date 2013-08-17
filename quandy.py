@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.56'
-__releasedate__ = '2013-06-03'
+__version__ = '0.57'
+__releasedate__ = '2013-08-17'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -925,7 +925,7 @@ class Formfield:
         # RADIO widget - radio buttons are a type of input but they behave quite differently
         elif widget == 'radio':
             addline('<tr><th colspan="2" class="radio_title" id="radio_title_%s">%s</th></tr>' % (
-                title, tools.unfriendly_name(id)
+                id, title
                 )
             )
             
@@ -952,7 +952,7 @@ class Formfield:
         # CHECKBOX widget - checkboxes are a type of input but they behave quite differently
         elif widget == 'checkbox':
             addline('<tr><th colspan="2" class="checkbox_title" id="checkbox_title_%s">%s</th></tr>' % (
-                tools.unfriendly_name(id), title
+                id, title
                 )
             )
 
