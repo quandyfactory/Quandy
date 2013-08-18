@@ -59,6 +59,14 @@ easy_install. In the meantime it's a file.
 
 ## Revision History
 
+### Version 0.62
+
+* Release Date: 2013-08-18
+
+* Changes:
+
+    * Fixed bug in checkbox, radio widgets where `</formitem>` is repeated after each option
+
 ### Version 0.61
 
 * Release Date: 2013-08-18

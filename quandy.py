@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.61'
+__version__ = '0.62'
 __releasedate__ = '2013-08-18'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -973,7 +973,7 @@ class Formfield:
                 addline('      </label>')
                 addline('    </td>')
                 addline('  </tr>')
-                addline('</formitem>')
+            addline('</formitem>')
 
         # CHECKBOX widget - checkboxes are a type of input but they behave quite differently
         elif widget == 'checkbox':
@@ -1004,7 +1004,7 @@ class Formfield:
                 addline('      </label>')
                 addline('    </td>')
                 addline('  </tr>')
-                addline('</formitem>')
+            addline('</formitem>')
 
         # TEXTAREA widget
         elif widget == 'textarea':
