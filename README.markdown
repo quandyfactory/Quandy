@@ -22,7 +22,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.64
+* Version: 0.65
 
 * Release Date: 2013-08-18
 
@@ -58,6 +58,14 @@ easy_install. In the meantime it's a file.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.65
+
+* Release Date: 2013-08-18
+
+* Changes:
+
+    * Updated formfield separator widget to new id, class conventions
 
 ### Version 0.64
 

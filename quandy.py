@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.64'
+__version__ = '0.65'
 __releasedate__ = '2013-08-18'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -1034,7 +1034,7 @@ class Formfield:
 
         # separator widget
         elif widget == 'separator':
-            addline('  <tr id="%s_tablerow" class="%s_tablerow centered">' % (id, classname))
+            addline('  <tr id="%s_item" class="%s_item separator_item">' % (id, classname))
             addline('    <th colspan="2" title="%s">%s</th>' % (title, title))
             addline('  </tr>')
 
