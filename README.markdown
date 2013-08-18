@@ -22,7 +22,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.63
+* Version: 0.64
 
 * Release Date: 2013-08-18
 
@@ -59,6 +59,14 @@ easy_install. In the meantime it's a file.
 
 ## Revision History
 
+### Version 0.64
+
+* Release Date: 2013-08-18
+
+* Changes:
+
+    * Fixed misspelling `formconteiner` in replace function
+    
 ### Version 0.63
 
 * Release Date: 2013-08-18

@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.63'
+__version__ = '0.64'
 __releasedate__ = '2013-08-18'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -842,7 +842,7 @@ class Form:
             result = result.replace('<thead', '<formcontainerhead')
             result = result.replace('</thead>', '</formcontainerhead>')
             result = result.replace('<tbody', '<formcontainerbody')
-            result = result.replace('</tbody>', '</formconteinerbody>')
+            result = result.replace('</tbody>', '</formcontainerbody>')
             result = result.replace('<tr', '<formitem')
             result = result.replace('</tr>', '</formitem>')
             result = result.replace('<th', '<formitemhead')
