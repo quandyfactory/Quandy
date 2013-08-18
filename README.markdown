@@ -22,7 +22,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.57
+* Version: 0.58
 
 * Release Date: 2013-08-17
 
@@ -65,6 +65,15 @@ layout.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.58
+
+* Release Date: 2013-08-17
+
+* Changes:
+
+    * Added ability to structure form using custom form tags, not table
+
 
 ### Version 0.57
 

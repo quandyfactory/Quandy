@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.57'
+__version__ = '0.58'
 __releasedate__ = '2013-08-17'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -791,7 +791,7 @@ class Form:
             x += order*-1
         return options
 
-    def write(self, formfields = [], id='', name='', classname='', title='', method='post', action='', enctype='application/x-www-form-urlencoded'):
+    def write(self, formfields = [], id='', name='', classname='', title='', method='post', action='', enctype='application/x-www-form-urlencoded', table=True):
         atts = {}
         output = []
         addline = output.append
@@ -830,8 +830,24 @@ class Form:
         addline('</tbody>')
         addline('</table>')
         addline('</form>')
-        return '\n'.join(output)
-        return '\n'.join(output)
+        if table == True:
+            return '\n'.join(output)
+        result = '\n'.join(output)
+        result = result.replace('<table', '<formcontainer')
+        result = result.replace('</table>', '</formcontainer>')
+        result = result.replace('<thead', '<formcontainerhead')
+        result = result.replace('</thead>', '</formcontainerhead>')
+        result = result.replace('<tbody', '<formcontainerbody')
+        result = result.replace('</tbody>', '</formconteinerbody>')
+        result = result.replace('<tr', '<formitem')
+        result = result.replace('</tr>', '</formitem>')
+        result = result.replace('<th', '<formitemhead')
+        result = result.replace('</th>', '</formitemhead>')
+        result = result.replace('<td', '<formitembody')
+        result = result.replace('</td>', '</formitembody>')
+        return result
+
+
 
 
 class Formfield:
