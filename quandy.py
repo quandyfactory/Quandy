@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.62'
+__version__ = '0.63'
 __releasedate__ = '2013-08-18'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -1020,15 +1020,17 @@ class Formfield:
                 addline('  </tr>')
                 addline('  <tr id="%s_body" class="%s_head textarea_body">' % (id, classname))
                 addline('    <td colspan="2" title = "%s" class="form_textarea">' % (title))                
+                addline('      <textarea%s>%s</textarea>' % (ats, value))
+                addline('    </td>')
+                addline('  </tr>')
+                addline('</formitem>')
             else:
                 addline('  <tr id="%s_head" class="%s_head textarea_item">' % (id, classname))
                 addline('    <th title="%s">%s</th>' % (tools.strip_html(title), title))
                 addline('    <td title="%s">' % (tools.strip_html(title)))
-                
-            addline('      <textarea%s>%s</textarea>' % (ats, value))
-            addline('    </td>')
-            addline('  </tr>')
-            addline('</formitem>')
+                addline('      <textarea%s>%s</textarea>' % (ats, value))
+                addline('    </td>')
+                addline('  </tr>')
 
         # separator widget
         elif widget == 'separator':
