@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.58'
-__releasedate__ = '2013-08-17'
+__version__ = '0.59'
+__releasedate__ = '2013-08-18'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -833,6 +833,7 @@ class Form:
         if table == True:
             return '\n'.join(output)
         result = '\n'.join(output)
+        result = result.replace('colspan="2"', '')
         result = result.replace('<table', '<formcontainer')
         result = result.replace('</table>', '</formcontainer>')
         result = result.replace('<thead', '<formcontainerhead')
@@ -899,7 +900,7 @@ class Formfield:
             if multiple != '':
                 atts['Multiple'] = 'multiple'
             ats = "".join([' %s="%s"' % (k, v) for k, v in atts.items()])
-            addline('  <tr id="%s_tablerow" class="%s_tablerow">' % (id, classname))
+            addline('  <tr id="%s_item" class="%s_item select_item">' % (id, classname))
             addline('    <th title="%s">%s</th>' % (title, title))
             addline('    <td title="%s">' % (title))
             addline('      <select%s>' % (ats))
@@ -920,19 +921,21 @@ class Formfield:
 
         # INPUT widget
         elif widget == 'input':
+            if type == '':
+                type = 'text'
             if value != '':
                 atts['value'] = value
             if type != '':
                 atts['type'] = type
             ats = "".join([' %s="%s"' % (k, v) for k, v in atts.items()])
             if type == 'hidden' and visible == False:
-                addline(' <tr style="display: none"><td><input%s></td></tr>' % (ats))
+                addline('  <tr style="display: none"><td><input%s></td></tr>' % (ats))
             else:
-                addline('  <tr id="%s_tablerow" class="%s_tablerow">' % (id, classname))
+                addline('  <tr id="%s_item" class="%s_item %s_item">' % (id, classname, type))
                 if type != 'submit':
                     addline('    <th title="%s">%s</th>\n    <td title="%s">' % (title, title, title))
                 else:
-                    addline('    <td colspan="2" title = "%s" class="form_button">' % (title))
+                    addline('    <td colspan="2" title = "%s" class="%s_form_button">' % (title, classname))
                 addline('      <input%s>' % (ats))
                 if type == 'hidden' and visible != False: addline(value)
                 addline('    </td>')
@@ -940,11 +943,12 @@ class Formfield:
 
         # RADIO widget - radio buttons are a type of input but they behave quite differently
         elif widget == 'radio':
-            addline('<tr><th colspan="2" class="radio_title" id="radio_title_%s">%s</th></tr>' % (
+            addline('  <tr id="%s_head" class="%s_head radio_head">' % (id, classname))
+            addline('    <th colspan="2" class="radio_title" id="radio_title_%s">%s</th>' % (
                 id, title
                 )
             )
-            
+            addline('  </tr>')
             for option in options:
                 if isinstance(option, list):
                     option_value, option_text = option[0], option[1]
@@ -953,50 +957,47 @@ class Formfield:
                 checked = ''
                 if retainstate != '' and unicode(option_value) == unicode(value):
                     checked = ' checked'
-                addline('<tr class="%s_tablerow">' % (classname))
-                addline('<td colspan="2" class="%s">' % (classname))
-                addline('<label for="%s_%s" id="for_%s_%s">' % (
+                addline('  <tr id="%s_body" class="%s_body radio_body">' % (id, classname))
+                addline('    <td colspan="2" class="%s">' % (classname))
+                addline('      <label for="%s_%s" id="for_%s_%s">' % (
                     id, tools.unfriendly_name(option_value), id, tools.unfriendly_name(option_value), )
                 )
-                addline('<input type="radio" name="%s" id="%s_%s" value="%s"%s>' % (
+                addline('        <input type="radio" name="%s" id="%s_%s" value="%s"%s>' % (
                     id, id, tools.unfriendly_name(option_value), option_value, checked)
                 )
-                addline('%s</label>' % (option_text))
-                addline('</td>')
-                addline('</tr>')
+                addline('        %s' % (option_text))
+                addline('      </label>')
+                addline('    </td>')
+                addline('  </tr>')
 
         # CHECKBOX widget - checkboxes are a type of input but they behave quite differently
         elif widget == 'checkbox':
-            addline('<tr><th colspan="2" class="checkbox_title" id="checkbox_title_%s">%s</th></tr>' % (
+            addline('  <tr id="%s_head" class="%s_head checkbox_head">' % (id, classname))
+            addline('    <th colspan="2" class="checkbox_title" id="checkbox_title_%s">%s</th>' % (
                 id, title
                 )
             )
-
-            # fix values
-            if not isinstance(value, list):
-                value = [value] # turn value into a list
-
-            value = [unicode(val) for val in value]
-            
+            addline('  </tr>')
             for option in options:
                 if isinstance(option, list):
                     option_value, option_text = option[0], option[1]
                 else:
                     option_value, option_text = option, option
                 checked = ''
-                if retainstate != '' and unicode(option_value) in value:
-                    checked = ' checked="checked"'
-                addline('<tr class="%s_tablerow">' % (classname))
-                addline('<td colspan="2" class="%s">' % (classname))
-                addline('<label for="%s_%s" id="for_%s_%s">' % (
+                if retainstate != '' and unicode(option_value) == unicode(value):
+                    checked = ' checked'
+                addline('  <tr id="%s_body" class="%s_body checkbox_body">' % (id, classname))
+                addline('    <td colspan="2" class="%s">' % (classname))
+                addline('      <label for="%s_%s" id="for_%s_%s">' % (
                     id, tools.unfriendly_name(option_value), id, tools.unfriendly_name(option_value), )
                 )
-                addline('<input type="checkbox" name="%s" id="%s_%s" value="%s"%s>' % (
+                addline('        <input type="checkbox" name="%s" id="%s_%s" value="%s"%s>' % (
                     id, id, tools.unfriendly_name(option_value), option_value, checked)
                 )
-                addline('%s</label>' % (option_text))
-                addline('</td>')
-                addline('</tr>')
+                addline('        %s' % (option_text))
+                addline('      </label>')
+                addline('    </td>')
+                addline('  </tr>')
 
         # TEXTAREA widget
         elif widget == 'textarea':
@@ -1005,11 +1006,13 @@ class Formfield:
             if cols > 0:
                 atts['cols'] = cols
             ats = "".join([' %s="%s"' % (k, v) for k, v in atts.items()])
-            addline('  <tr id="%s_tablerow" class="%s_tablerow">' % (id, classname))
+            addline('<tr id="%s_head" class="%s_head textarea_head">' % (id, classname))
             if twolines == False:
                 addline('    <th title="%s">%s</th>\n    <td title="%s">' % (tools.strip_html(title), title, tools.strip_html(title)))
             else:
-                addline('    <th colspan="2" title="%s">%s</th>\n  </tr>\n  <tr>' % (title, title))
+                addline('    <th colspan="2" title="%s">%s</th>' % (title, title))
+                addline('  </tr>')
+                addline('  <tr id="%s_body" class="%s_body textarea_body">' % (id, classname))
                 addline('    <td colspan="2" title = "%s" class="form_textarea">' % (title))
             addline('      <textarea%s>%s</textarea>' % (ats, value))
             addline('    </td>')

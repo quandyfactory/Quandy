@@ -22,9 +22,9 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.58
+* Version: 0.59
 
-* Release Date: 2013-08-17
+* Release Date: 2013-08-18
 
 ## Requirements and Recommendations
 
@@ -66,6 +66,15 @@ layout.
 
 ## Revision History
 
+### Version 0.59
+
+* Release Date: 2013-08-18
+
+* Changes:
+
+    * Cleaned up formfield generation, made id, class etc. consistent across different widgets
+    * Removed colspan attributes from non-table formfields
+
 ### Version 0.58
 
 * Release Date: 2013-08-17
@@ -73,7 +82,6 @@ layout.
 * Changes:
 
     * Added ability to structure form using custom form tags, not table
-
 
 ### Version 0.57
 
