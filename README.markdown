@@ -22,7 +22,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.59
+* Version: 0.60
 
 * Release Date: 2013-08-18
 
@@ -43,13 +43,6 @@ Released under the GNU General Public Licence, Version 2:
 At some point I need to tackle packaging this up either through PyPi or using
 easy_install. In the meantime it's a file.
 
-### Better Forms
-
-For sheer expedience, I wrote the form and formfield classes so that they lay
-forms out using HTML tables (hiss! boo!). I'd like to add an optional
-parameter that lets you switch between table-based layout and div-based
-layout.
-
 [1]: mailto:ryan@quandyfactory.com
 
 [2]: http://quandyfactory.com/projects/quandy
@@ -65,6 +58,14 @@ layout.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.60
+
+* Release Date: 2013-08-18
+
+* Changes:
+
+    * Fixed minor classname issue in textarea widget 
 
 ### Version 0.59
 

@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.59'
+__version__ = '0.60'
 __releasedate__ = '2013-08-18'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -1006,7 +1006,9 @@ class Formfield:
             if cols > 0:
                 atts['cols'] = cols
             ats = "".join([' %s="%s"' % (k, v) for k, v in atts.items()])
-            addline('<tr id="%s_head" class="%s_head textarea_head">' % (id, classname))
+            addline('<tr id="%s_head" class="%s_head textarea_%s">' % (id, classname, 
+                'item' if twolines == False else 'head')
+            )
             if twolines == False:
                 addline('    <th title="%s">%s</th>\n    <td title="%s">' % (tools.strip_html(title), title, tools.strip_html(title)))
             else:
