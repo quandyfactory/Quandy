@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.60'
+__version__ = '0.61'
 __releasedate__ = '2013-08-18'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -830,22 +830,25 @@ class Form:
         addline('</tbody>')
         addline('</table>')
         addline('</form>')
-        if table == True:
-            return '\n'.join(output)
         result = '\n'.join(output)
-        result = result.replace('colspan="2"', '')
-        result = result.replace('<table', '<formcontainer')
-        result = result.replace('</table>', '</formcontainer>')
-        result = result.replace('<thead', '<formcontainerhead')
-        result = result.replace('</thead>', '</formcontainerhead>')
-        result = result.replace('<tbody', '<formcontainerbody')
-        result = result.replace('</tbody>', '</formconteinerbody>')
-        result = result.replace('<tr', '<formitem')
-        result = result.replace('</tr>', '</formitem>')
-        result = result.replace('<th', '<formitemhead')
-        result = result.replace('</th>', '</formitemhead>')
-        result = result.replace('<td', '<formitembody')
-        result = result.replace('</td>', '</formitembody>')
+        if table == True:
+            result = result.replace('</formitem>', '')
+            pattern = '<formitem.*?>'
+            result = re.sub(pattern, '', result)
+        else:
+            result = result.replace('colspan="2"', '')
+            result = result.replace('<table', '<formcontainer')
+            result = result.replace('</table>', '</formcontainer>')
+            result = result.replace('<thead', '<formcontainerhead')
+            result = result.replace('</thead>', '</formcontainerhead>')
+            result = result.replace('<tbody', '<formcontainerbody')
+            result = result.replace('</tbody>', '</formconteinerbody>')
+            result = result.replace('<tr', '<formitem')
+            result = result.replace('</tr>', '</formitem>')
+            result = result.replace('<th', '<formitemhead')
+            result = result.replace('</th>', '</formitemhead>')
+            result = result.replace('<td', '<formitembody')
+            result = result.replace('</td>', '</formitembody>')
         return result
 
 
@@ -943,6 +946,7 @@ class Formfield:
 
         # RADIO widget - radio buttons are a type of input but they behave quite differently
         elif widget == 'radio':
+            addline('  <formitem id="%s_item" class="%s_item radio_item">' % (id, classname))
             addline('  <tr id="%s_head" class="%s_head radio_head">' % (id, classname))
             addline('    <th colspan="2" class="radio_title" id="radio_title_%s">%s</th>' % (
                 id, title
@@ -969,9 +973,11 @@ class Formfield:
                 addline('      </label>')
                 addline('    </td>')
                 addline('  </tr>')
+                addline('</formitem>')
 
         # CHECKBOX widget - checkboxes are a type of input but they behave quite differently
         elif widget == 'checkbox':
+            addline('  <formitem id="%s_item" class="%s_item checkbox_item">' % (id, classname))
             addline('  <tr id="%s_head" class="%s_head checkbox_head">' % (id, classname))
             addline('    <th colspan="2" class="checkbox_title" id="checkbox_title_%s">%s</th>' % (
                 id, title
@@ -998,6 +1004,7 @@ class Formfield:
                 addline('      </label>')
                 addline('    </td>')
                 addline('  </tr>')
+                addline('</formitem>')
 
         # TEXTAREA widget
         elif widget == 'textarea':
@@ -1006,19 +1013,22 @@ class Formfield:
             if cols > 0:
                 atts['cols'] = cols
             ats = "".join([' %s="%s"' % (k, v) for k, v in atts.items()])
-            addline('<tr id="%s_head" class="%s_head textarea_%s">' % (id, classname, 
-                'item' if twolines == False else 'head')
-            )
-            if twolines == False:
-                addline('    <th title="%s">%s</th>\n    <td title="%s">' % (tools.strip_html(title), title, tools.strip_html(title)))
-            else:
+            if twolines == True:
+                addline('  <formitem id="%s_item" class="%s_item checkbox_item">' % (id, classname))
+                addline('  <tr id="%s_head" class="%s_head textarea_head">' % (id, classname))
                 addline('    <th colspan="2" title="%s">%s</th>' % (title, title))
                 addline('  </tr>')
-                addline('  <tr id="%s_body" class="%s_body textarea_body">' % (id, classname))
-                addline('    <td colspan="2" title = "%s" class="form_textarea">' % (title))
+                addline('  <tr id="%s_body" class="%s_head textarea_body">' % (id, classname))
+                addline('    <td colspan="2" title = "%s" class="form_textarea">' % (title))                
+            else:
+                addline('  <tr id="%s_head" class="%s_head textarea_item">' % (id, classname))
+                addline('    <th title="%s">%s</th>' % (tools.strip_html(title), title))
+                addline('    <td title="%s">' % (tools.strip_html(title)))
+                
             addline('      <textarea%s>%s</textarea>' % (ats, value))
             addline('    </td>')
             addline('  </tr>')
+            addline('</formitem>')
 
         # separator widget
         elif widget == 'separator':

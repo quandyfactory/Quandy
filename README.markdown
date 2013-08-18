@@ -22,7 +22,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.60
+* Version: 0.61
 
 * Release Date: 2013-08-18
 
@@ -58,6 +58,14 @@ easy_install. In the meantime it's a file.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.61
+
+* Release Date: 2013-08-18
+
+* Changes:
+
+    * Wrapped two-part non-table form widgets in `<formitem>` elements, removed formitem tags from table forms
 
 ### Version 0.60
 
