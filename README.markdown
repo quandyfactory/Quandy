@@ -22,9 +22,9 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.65
+* Version: 0.66
 
-* Release Date: 2013-08-18
+* Release Date: 2014-02-24
 
 ## Requirements and Recommendations
 
@@ -58,6 +58,14 @@ easy_install. In the meantime it's a file.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.66
+
+* Release Date: 2014-02-24
+
+* Changes:
+
+    * Just noticed it was still loading css files using @import, so switched to link
 
 ### Version 0.65
 

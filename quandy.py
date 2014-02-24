@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.65'
-__releasedate__ = '2013-08-18'
+__version__ = '0.66'
+__releasedate__ = '2014-02-24'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -344,9 +344,9 @@ class Html:
         
         addline('  <head>')
         for file in css_files:
-            addline('    <style type="text/css">@import "%s%s";</style>' % (css_path, file))
+            addline('    <link rel="stylesheet" type="text/css" href="%s%s">' % (css_path, file))
         for file in css_extend:
-            addline('    <style type="text/css">@import "%s%s";</style>' % (css_path, file))
+            addline('    <link rel="stylesheet" type="text/css" href="%s%s">' % (css_path, file))
 
         addline('    <meta name="author" content="%s"%s>' % (page_author, closetag))
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
