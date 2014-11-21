@@ -22,9 +22,9 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.66
+* Version: 0.67
 
-* Release Date: 2014-02-24
+* Release Date: 2014-11-21
 
 ## Requirements and Recommendations
 
@@ -58,6 +58,14 @@ easy_install. In the meantime it's a file.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.67
+
+* Release Date: 2014-11-21
+
+* Changes:
+
+    *  Removed Content-Style-Type from http meta-equiv - HTML5 validator doesn't like it
 
 ### Version 0.66
 
