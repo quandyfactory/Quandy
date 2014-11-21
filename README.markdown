@@ -22,7 +22,7 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.67
+* Version: 0.68
 
 * Release Date: 2014-11-21
 
@@ -58,6 +58,14 @@ easy_install. In the meantime it's a file.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.68
+
+* Release Date: 2014-11-21
+
+* Changes:
+
+    *  Fixed issue with checkbox input not accepting multiple values
 
 ### Version 0.67
 
