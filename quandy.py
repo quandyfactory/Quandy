@@ -3,7 +3,7 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.67'
+__version__ = '0.68'
 __releasedate__ = '2014-11-21'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
@@ -982,6 +982,15 @@ class Formfield:
                 id, title
                 )
             )
+            
+            # make sure the value is a list, since a checkbox can have multiple values
+            if not isinstance(value, list):
+                value = [value]
+
+            # convert each item in the value list to unicode
+            for i, v in enumerate(value):
+                value[i] = unicode(v)
+            
             addline('  </tr>')
             for option in options:
                 if isinstance(option, list):
@@ -989,7 +998,7 @@ class Formfield:
                 else:
                     option_value, option_text = option, option
                 checked = ''
-                if retainstate != '' and unicode(option_value) == unicode(value):
+                if retainstate != '' and unicode(option_value) in value:
                     checked = ' checked'
                 addline('  <tr id="%s_body" class="%s_body checkbox_body">' % (id, classname))
                 addline('    <td colspan="2" class="%s">' % (classname))
