@@ -3,8 +3,8 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.66'
-__releasedate__ = '2014-02-24'
+__version__ = '0.67'
+__releasedate__ = '2014-11-21'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
@@ -350,7 +350,6 @@ class Html:
 
         addline('    <meta name="author" content="%s"%s>' % (page_author, closetag))
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
-        addline('    <meta http-equiv="Content-Style-Type" content="text/css">') # so Total Validator tells me
         addline('    <meta name="generator" content="Quandy %s; url=%s"%s>' % (__version__, __homepage__, closetag))
         if nocache == True:
             addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
