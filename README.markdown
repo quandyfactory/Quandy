@@ -22,13 +22,13 @@ Released under the GNU General Public Licence, Version 2:
 
 ## This Version
 
-* Version: 0.68
+* Version: 0.7
 
-* Release Date: 2014-11-21
+* Release Date: 2020-11-12
 
 ## Requirements and Recommendations
 
-* Python 2.5 or newer (not Python 3)
+* Python 3 or Python 2.5+
 
 * python-markdown [http://www.freewisdom.org/projects/python-markdown/][5]
 
@@ -58,6 +58,14 @@ easy_install. In the meantime it's a file.
 [7]: http://www.sqlalchemy.org/
 
 ## Revision History
+
+### Version 0.7
+
+* Release Date: 2020-11-12
+
+* Changes:
+
+    *  Updated it to work with Python 3
 
 ### Version 0.68
 
