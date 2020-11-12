@@ -3,12 +3,17 @@ Quandy is a sweet, simple library to help you create web applications with Pytho
 Quandy plays nice with Web.py and SQLAlchemy.
 """
 
-__version__ = '0.68'
-__releasedate__ = '2014-11-21'
+__version__ = '0.7'
+__releasedate__ = '2020-11-12'
 __author__ = 'Ryan McGreal <ryan@quandyfactory.com>'
 __homepage__ = 'http://quandyfactory.com/projects/5/quandy'
 __repository__ = 'http://github.com/quandyfactory/Quandy'
 __copyright__ = 'Copyright (C) 2009 by Ryan McGreal. Licenced under GPL version 2. http://www.gnu.org/licenses/gpl-2.0.html'
+
+try:
+    unicode
+except:
+    unicode = str
 
 import hashlib # for password hash function
 import re # for the fix_1252_codes function
@@ -134,7 +139,7 @@ class Cal:
         - details is string
         """
         if type(eventdate).__name__ != 'date':
-            raise TypeError, 'eventdate must be type datetime.date, got %s instead' % type(eventdate).__name__
+            raise TypeError('eventdate must be type datetime.date, got %s instead' % (type(eventdate).__name__))
         self.events.append( ( eventdate, details, ) )
 
     def delete_event(self, index):
@@ -350,7 +355,9 @@ class Html:
 
         addline('    <meta name="author" content="%s"%s>' % (page_author, closetag))
         addline('    <meta http-equiv="Content-Type" content="text/html; charset=%s"%s>' % (charset, closetag))
+        addline('    <meta http-equiv="Content-Style-Type" content="text/css">') # so Total Validator tells me
         addline('    <meta name="generator" content="Quandy %s; url=%s"%s>' % (__version__, __homepage__, closetag))
+        addline('    <meta name=viewport content="width=device-width, initial-scale=1">')
         if nocache == True:
             addline('    <meta http-equiv="pragma" content="no-cache"%s>' % (closetag))
         if rss != '':
@@ -819,7 +826,7 @@ class Form:
         addline('<form%s>' % attstring)
 
         addline('<table>')
-        if title <> '':
+        if title != '':
              addline('<caption id="%s_caption">%s</caption>\n' % (id, title))
         addline('<tbody id="%s_tbody">' % id)
 
@@ -982,15 +989,6 @@ class Formfield:
                 id, title
                 )
             )
-            
-            # make sure the value is a list, since a checkbox can have multiple values
-            if not isinstance(value, list):
-                value = [value]
-
-            # convert each item in the value list to unicode
-            for i, v in enumerate(value):
-                value[i] = unicode(v)
-            
             addline('  </tr>')
             for option in options:
                 if isinstance(option, list):
@@ -998,7 +996,7 @@ class Formfield:
                 else:
                     option_value, option_text = option, option
                 checked = ''
-                if retainstate != '' and unicode(option_value) in value:
+                if retainstate != '' and unicode(option_value) == unicode(value):
                     checked = ' checked'
                 addline('  <tr id="%s_body" class="%s_body checkbox_body">' % (id, classname))
                 addline('    <td colspan="2" class="%s">' % (classname))
